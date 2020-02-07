@@ -1,5 +1,5 @@
 <template>
-  <div>机票首页</div>
+  <div>酒店首页</div>
 </template>
 
 <script>

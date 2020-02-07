@@ -1,5 +1,5 @@
 <template>
-   <div>首页</div>
+<div>闲云旅游网首页页面</div>
 </template>
 
 <script>

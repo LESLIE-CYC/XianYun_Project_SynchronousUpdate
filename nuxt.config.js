@@ -5,14 +5,17 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    //修改1：url标题名称
+    title:'黑马闲云旅游网',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      //修改2：增加全局字体的样式
+      { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1168872_ehvuah8v57g.css'} // 新增全局字体样式
     ]
   },
   /*
@@ -23,7 +26,9 @@ export default {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    //修改3：新增自定义的页面过渡样式
+    'assets/main.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -48,6 +53,10 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    // baseURL: "http://157.122.54.189:9095" // 新增备用地址
+    //修改4:新增axios默认请求路径
+    baseURL: "http://127.0.0.1:1337" 	
   },
   /*
   ** Build configuration
