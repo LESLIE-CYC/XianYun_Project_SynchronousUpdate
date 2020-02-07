@@ -59,6 +59,10 @@ export default {
   },
   methods: {
     tabClick(index) {
+      //进行判断然后跳转到国内机票页面
+      if(index ===2){
+        this.$router.push('/air')
+      }
       this.current = index;
     }
   }
