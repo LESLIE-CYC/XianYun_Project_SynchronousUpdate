@@ -1,5 +1,9 @@
 <template>
-  <div>底部公共组件</div>
+  <div>
+    <div>
+      footer
+    </div>
+  </div>
 </template>
 
 <script>
