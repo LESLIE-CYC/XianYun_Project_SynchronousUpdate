@@ -12,29 +12,26 @@
             @click="handleChangeTab(index)"
           >{{item}}</span>
         </el-row>
-              <!-- 1.3使用登录与注册表单公共组件 -->
-    <loginForm v-if="currentTab ==0"></loginForm>
+        <!-- 1.3使用登录与注册表单公共组件 -->
+        <loginForm v-if="currentTab ==0"></loginForm>
       </div>
-
     </el-row>
-    
   </div>
 </template>
 
 <script>
 //1.1引入登录与注册表单公共组件
-import loginForm from '@/components/user/loginForm.vue'
+import loginForm from "@/components/user/loginForm.vue";
 export default {
- 
   data() {
     return {
       currentTab: 0
     };
   },
-   components:{
+  components: {
     //  1.2注册登录与注册表单公共组件
-     loginForm
-   },
+    loginForm
+  },
   methods: {
     handleChangeTab(index) {
       this.currentTab = index;
