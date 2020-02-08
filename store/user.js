@@ -13,3 +13,20 @@ export const mutations = {
         state.userInfo = data;
     },
 }
+//固定的属性，异步修改state中的值
+export const actions = {
+    //和网易那些是一样子，多个不同的邮箱都可以登录一个帐号
+    login(store,data){
+        this.$axios({
+            url:'/accounts/login',
+            method:'POST',
+            data
+          }).then(res=>{
+            // console.log(res.data)
+            const {data} =res;
+            console.log(data)
+            //这里是把数据存到那个store里面去的
+           store.commit('setUserInfo',data);
+          })
+    }
+}
