@@ -48,8 +48,19 @@ export default {
     handleLoginSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.$axios({
+            url:'/accounts/login',
+            method:'POST',
+            data:this.form
+          }).then(res=>{
+            console.log(res.data)
+            const {data} =res;
+            console.log(data)
+            //这里是把数据存到那个store里面去的
+            this.$store.commit('user/setUserInfo',data);
+          })
           //在这个主要是打印出来看一下用户输入的数据是否是正确的，若是不正确就能打印出，测试用的
-          console.log(this.form);
+          // console.log(this.form);
         } 
       });
     }
