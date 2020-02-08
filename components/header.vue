@@ -14,7 +14,7 @@
     </el-row>
 
     <!-- 登录/用户信息 -->
-    <el-row type="flex" align="middle">
+    <el-row type="flex" align="middle" >
       <!-- 如果用户存在则展示用户信息，用户数据来自store -->
       <el-dropdown v-if="$store.state.user.userInfo.token">
         <el-row type="flex" align="middle" class="el-dropdown-link">
@@ -26,7 +26,7 @@
         </el-row>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
-            <nuxt-link to="#">个人中心</nuxt-link>
+            <nuxt-link to="#" class="el-personal">个人中心</nuxt-link>
           </el-dropdown-item>
           <el-dropdown-item>
             <div>退出</div>
@@ -94,17 +94,18 @@ export default {
   }
   .el-dropdown-link {
     margin-left: 20px;
-
+     
     &:hover {
       img {
         border-color: #409eff;
       }
     }
-
     a {
       display: block;
-    }
+      font-size: 16px;
+      color: #6b6d71;
 
+    }
     img {
       width: 32px;
       height: 32px;
@@ -113,8 +114,12 @@ export default {
       border-radius: 50px;
     }
   }
-  .account-link {
+  .el-personal{
     font-size: 16px;
+    color: #6b6d71;
+  }
+  .account-link {
+    font-size: 15px;
     color: #6b6d71;
   }
 }

@@ -17,7 +17,7 @@ export const mutations = {
 export const actions = {
     //和网易那些是一样子，多个不同的邮箱都可以登录一个帐号
     login(store,data){
-        this.$axios({
+       return this.$axios({
             url:'/accounts/login',
             method:'POST',
             data
@@ -27,6 +27,7 @@ export const actions = {
             console.log(data)
             //这里是把数据存到那个store里面去的
            store.commit('setUserInfo',data);
+           
           })
     }
 }

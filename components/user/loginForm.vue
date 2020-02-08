@@ -60,7 +60,11 @@ export default {
           //   //这里是把数据存到那个store里面去的
           //   this.$store.commit('user/setUserInfo',data);
           // })
-          this.$store.dispatch('user/login',this.form)
+          this.$store.dispatch('user/login',this.form).then(()=>{
+            this.$message.success('登录成功！');
+            //登录成功后就跳转到首页
+            this.$router.push('/')
+          })
         } 
       });
     }
