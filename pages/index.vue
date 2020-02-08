@@ -43,7 +43,7 @@ export default {
       options: [
         {
           text: "攻略",
-          placeholder: "搜索城市"
+          placeholder: "搜索你想要去的城市"
         },
         {
           text: "酒店",

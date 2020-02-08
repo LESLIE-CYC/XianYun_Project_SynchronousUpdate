@@ -18,7 +18,7 @@
       <div class="user">
         <i class="el-icon-bell">      消息</i>
         <i class="el-icon-caret-bottom"></i>
-        <nuxt-link to="user/login.vue" class="login">登录 / 注册</nuxt-link>
+        <nuxt-link to="user/login" class="login">登录 / 注册</nuxt-link>
       </div>
     </el-row>
   </el-row>
