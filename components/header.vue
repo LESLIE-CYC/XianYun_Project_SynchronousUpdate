@@ -6,7 +6,7 @@
       <img src="/logo.jpg" alt />
     </div>
     <!-- nav首页导航区域 -->
-    <el-row type="flex" class="hederNav">
+    <el-row type="flex" class="hederNav">   
       <nuxt-link to="/">首页</nuxt-link>
       <nuxt-link to="/post">旅游攻略</nuxt-link>
       <nuxt-link to="/hotel">酒店</nuxt-link>
@@ -14,7 +14,7 @@
     </el-row>
 
     <!-- 登录/用户信息 -->
-    <el-row type="flex" align="middle" >
+    <el-row type="flex" align="middle" class="account-link">
       <!-- 如果用户存在则展示用户信息，用户数据来自store -->
       <el-dropdown v-if="$store.state.user.userInfo.token">
         <el-row type="flex" align="middle" class="el-dropdown-link">
@@ -24,12 +24,12 @@
           </nuxt-link>
           <i class="el-icon-caret-bottom el-icon--right"></i>
         </el-row>
-        <el-dropdown-menu slot="dropdown">
+        <el-dropdown-menu slot="dropdown" class="el-el-el">
           <el-dropdown-item>
-            <nuxt-link to="#" class="el-personal">个人中心</nuxt-link>
+            <nuxt-link to="#">个人中心</nuxt-link>
           </el-dropdown-item>
           <el-dropdown-item>
-            <div>退出</div>
+            <div @click="handleLogout">退出</div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -48,6 +48,15 @@
 
 <script>
 export default {
+  methods:{
+     //用户退出
+     handleLogout(){
+       this.$store.commit('user/setUserInfo',{
+         token:"",
+         user:{}
+       })
+     }
+  },
   mounted() {
     // console.log(this.$store.state.user.name)
   }
@@ -94,7 +103,7 @@ export default {
   }
   .el-dropdown-link {
     margin-left: 20px;
-     
+
     &:hover {
       img {
         border-color: #409eff;
@@ -104,7 +113,6 @@ export default {
       display: block;
       font-size: 16px;
       color: #6b6d71;
-
     }
     img {
       width: 32px;
@@ -114,13 +122,18 @@ export default {
       border-radius: 50px;
     }
   }
-  .el-personal{
+  .account-link{
     font-size: 16px;
     color: #6b6d71;
   }
-  .account-link {
-    font-size: 15px;
-    color: #6b6d71;
+  .el-personal {
+    a{
+      font-size: 12px;
+      color: #6b6d71;
+    }
+    &:hover{
+      color: red;
+    }
   }
 }
 </style>
