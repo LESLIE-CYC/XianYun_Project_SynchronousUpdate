@@ -37,7 +37,7 @@
       <nuxt-link to="user/login" class="account-link" v-else>
         <i class="el-icon-bell">消息</i>
         <i class="el-icon-caret-bottom"></i>
-        登录 / 注册
+        登录/注册
       </nuxt-link>
     </el-row>
 
