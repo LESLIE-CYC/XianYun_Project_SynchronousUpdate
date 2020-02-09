@@ -94,7 +94,27 @@ export default {
   },
   methods: {
     // 发送验证码
-    handleSendCaptcha() {},
+    handleSendCaptcha() {
+        if(this.form.username == ''){
+            return;
+        }
+        //调用store仓库中的user
+        this.$store.dispatch('user/sendCaptcha',this.form.username).then(res =>{
+            this.$message.success('模拟手机验证码：000000')
+        })
+        /* 
+        这里的代码已封装到store/user.js里面去，到时有方便用
+        this.$axios({
+            url:'/captchas',
+            mehtod:'POST',
+            data:{
+                //当前用户所输入的手机号码
+                tel:this.form.username
+            }
+            }).then(res =>{
+                // console.log(res)
+        }) */
+    },
 
     // 注册
     handleRegSubmit() {
