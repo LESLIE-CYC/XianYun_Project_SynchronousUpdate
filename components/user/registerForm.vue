@@ -50,6 +50,16 @@ export default {
         callback();
       }
     };
+    //验证手机号码
+    const validateUsername = (rule, value, callback) => {
+      if (value == "") {
+        callback(new Error("请再次输入手机号码"));
+      } else if (/^1[3-9][0-9]{9}$/.test(value)) {
+          callback();
+      } else {
+        callback(new Error("请输入正确的手机号码"));
+      }
+    };
     return {
       // 表单数据，可以看后台提供的API
       form: {
@@ -67,9 +77,10 @@ export default {
             required: true,
             message: "请输入你的用户名/手机号",
             trigger: "blur"
-          }
+          },
+          { validator: validateUsername, trigger: "blur" }
         ],
-        //验证码 
+        //验证码
         captcha: [
           {
             required: true,
@@ -77,13 +88,13 @@ export default {
             trigger: "blur"
           }
         ],
-        //昵称 
-        nickname:[
-            {
+        //昵称
+        nickname: [
+          {
             required: true,
             message: "请输入你的昵称",
-            trigger: "blur" 
-            }
+            trigger: "blur"
+          }
         ],
         //密码
         password: [{ validator: validatePass, trigger: "blur" }],
@@ -95,14 +106,14 @@ export default {
   methods: {
     // 发送验证码
     handleSendCaptcha() {
-        if(this.form.username == ''){
-            return;
-        }
-        //调用store仓库中的user
-        this.$store.dispatch('user/sendCaptcha',this.form.username).then(res =>{
-            this.$message.success('模拟手机验证码：000000')
-        })
-        /* 
+      if (this.form.username == "") {
+        return;
+      }
+      //调用store仓库中的user 
+       this.$store.dispatch("user/sendCaptcha", this.form.username).then(res => {
+        this.$message.success("模拟手机验证码：000000");
+      });
+      /* 
         这里的代码已封装到store/user.js里面去，到时有方便用
         this.$axios({
             url:'/captchas',
@@ -118,7 +129,17 @@ export default {
 
     // 注册
     handleRegSubmit() {
-      console.log(this.form);
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          //checkPassword以外的乘余的属性
+          const { checkPassword, ...data } = this.form;
+          //调用注册接口
+         this.$store.dispatch('user/register',data).then(res =>{
+             this.$message.success('注册成功');
+             this.$router.push('/')
+         })
+        }
+      });
     }
   }
 };
