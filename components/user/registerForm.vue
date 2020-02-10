@@ -55,7 +55,7 @@ export default {
       if (value == "") {
         callback(new Error("请再次输入手机号码"));
       } else if (/^1[3-9][0-9]{9}$/.test(value)) {
-          callback();
+        callback();
       } else {
         callback(new Error("请输入正确的手机号码"));
       }
@@ -104,28 +104,55 @@ export default {
     };
   },
   methods: {
+    // 处理发送验证码
     // 发送验证码
-    handleSendCaptcha() {
-      if (this.form.username == "") {
+handleSendCaptcha(){
+    if(!this.form.username){
+        this.$confirm('手机号码不能为空', '提示', {
+            confirmButtonText: '确定',
+            showCancelButton: false,
+            type: 'warning'
+        })
         return;
-      }
-      //调用store仓库中的user 
-       this.$store.dispatch("user/sendCaptcha", this.form.username).then(res => {
-        this.$message.success("模拟手机验证码：000000");
-      });
-      /* 
-        这里的代码已封装到store/user.js里面去，到时有方便用
-        this.$axios({
-            url:'/captchas',
-            mehtod:'POST',
-            data:{
-                //当前用户所输入的手机号码
-                tel:this.form.username
-            }
-            }).then(res =>{
-                // console.log(res)
-        }) */
-    },
+    }
+
+    if(this.form.username.length !== 11){
+        this.$confirm('手机号码格式错误', '提示', {
+            confirmButtonText: '确定',
+            showCancelButton: false,
+            type: 'warning'
+        })
+        return;
+    }
+
+
+    this.$axios({
+        url: `/captchas`,
+        method: "POST",
+        data: {
+            tel: this.form.username
+        }
+    }).then(res => {
+        const {code} = res.data;
+        this.$confirm(`模拟手机验证码为：${code}`, '提示', {
+            confirmButtonText: '确定',
+            showCancelButton: false,
+            type: 'warning'
+        })
+    })
+},
+    // handleSendCaptcha() {
+    //   if (this.form.username == "") {
+    //     return;
+    //   }
+    //   //调用store仓库中的user
+    //   this.$store
+    //     .dispatch("user/sendCaptcha", { tel: this.ruleForm2.username })
+    //     .then(({ data }) => {
+    //       this.ruleForm2.captcha = data.code;
+    //       this.$message.success("模拟手机验证码:" + data.code);
+    //     });
+    // },
 
     // 注册
     handleRegSubmit() {
@@ -134,10 +161,10 @@ export default {
           //checkPassword以外的乘余的属性
           const { checkPassword, ...data } = this.form;
           //调用注册接口
-         this.$store.dispatch('user/register',data).then(res =>{
-             this.$message.success('注册成功');
-             this.$router.push('/')
-         })
+          this.$store.dispatch("user/register", data).then(res => {
+            this.$message.success("注册成功");
+            this.$router.push("/");
+          });
         }
       });
     }

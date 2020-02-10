@@ -6,7 +6,7 @@
       <img src="/logo.jpg" alt />
     </div>
     <!-- nav首页导航区域 -->
-    <el-row type="flex" class="hederNav">   
+    <el-row type="flex" class="hederNav">
       <nuxt-link to="/">首页</nuxt-link>
       <nuxt-link to="/post">旅游攻略</nuxt-link>
       <nuxt-link to="/hotel">酒店</nuxt-link>
@@ -35,9 +35,13 @@
       </el-dropdown>
       <!-- 不存在用户信息展示登录注册链接 -->
       <nuxt-link to="user/login" class="account-link" v-else>
-        <i class="el-icon-bell">消息</i>
-        <i class="el-icon-caret-bottom"></i>
-        登录/注册
+        <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+          <el-button slot="reference">
+            <i class="el-icon-message-solid">&nbsp;消息</i><!-- 消息字体图标 -->
+            <i class="el-icon-caret-bottom"></i><!-- 倒三角字体图标 -->
+          </el-button>
+        </el-popover>&nbsp;
+        登录 / 注册
       </nuxt-link>
     </el-row>
 
@@ -48,14 +52,14 @@
 
 <script>
 export default {
-  methods:{
-     //用户退出
-     handleLogout(){
-       this.$store.commit('user/setUserInfo',{
-         token:"",
-         user:{}
-       })
-     }
+  methods: {
+    //用户退出
+    handleLogout() {
+      this.$store.commit("user/setUserInfo", {
+        token: "",
+        user: {}
+      });
+    }
   },
   mounted() {
     // console.log(this.$store.state.user.name)
@@ -122,16 +126,16 @@ export default {
       border-radius: 50px;
     }
   }
-  .account-link{
+  .account-link {
     font-size: 16px;
     color: #6b6d71;
   }
   .el-personal {
-    a{
+    a {
       font-size: 12px;
       color: #6b6d71;
     }
-    &:hover{
+    &:hover {
       color: red;
     }
   }

@@ -43,40 +43,5 @@ export const actions = {
        store.commit('setUserInfo', data);
     })
   },
-  //发送手机的验证码
-  sendCaptcha() {
-    //判断用户输入的手机号是否符合条件，与给予提示
-    if(!this.form.username){
-        this.$confirm('手机号码不能为空', '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
-        return;
-    }
-    //判断用户输入的手机号格式是否正确，返回提示
-    if(this.form.username.length !== 11){
-        this.$confirm('手机号码格式错误', '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
-        return;
-    }
-    //发送axios请求
-    this.$axios({
-        url: `/captchas`,
-        method: "POST",
-        data: {
-            tel: this.form.username
-        }
-    }).then(res => {
-        const {code} = res.data;
-        this.$confirm(`模拟手机验证码为：${code}`, '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
-    })
-  }
+
 }

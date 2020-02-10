@@ -6,7 +6,7 @@ export default {
   */
   head: {
     //修改1：url标题名称
-    title:'无聊时就看：闲云旅游网',
+    title:'闲云旅游官方网站',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

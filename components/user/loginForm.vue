@@ -48,18 +48,6 @@ export default {
     handleLoginSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          //这里已经放在那个user.js文件里面了
-          // this.$axios({
-          //   url:'/accounts/login',
-          //   method:'POST',
-          //   data:this.form
-          // }).then(res=>{
-          //   console.log(res.data)
-          //   const {data} =res;
-          //   console.log(data)
-          //   //这里是把数据存到那个store里面去的
-          //   this.$store.commit('user/setUserInfo',data);
-          // })
           this.$store.dispatch('user/login',this.form).then(()=>{
             this.$message.success('登录成功！');
             //登录成功后就跳转到首页
