@@ -39,8 +39,9 @@
       <!-- 出发时间区域 -->
       <el-form-item label="出发时间">
         <!-- change 用户确认选择日期时触发 -->
-        <el-date-picker type="date" placeholder="请选择日期" style="width: 100%;" @change="handleDate"></el-date-picker>
+        <el-date-picker v-model="form.departDate"  type="date" placeholder="请选择日期" style="width: 100%;" @change="handleDate"></el-date-picker>
       </el-form-item>
+      <!-- 搜索功能区域 -->
       <el-form-item label>
         <el-button style="width:100%;" type="primary" icon="el-icon-search" @click="handleSubmit">搜索</el-button>
       </el-form-item>
@@ -52,6 +53,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -120,8 +122,9 @@ export default {
       if (this.destData.length === 0) {
         return;
       }
+      // 默认获取数组中第一个城市
       this.form.destCity = this.destData[0].value;
-      this.form.destCity = this.destData[0].sort;
+      this.form.destCode = this.destData[0].sort;
     },
     // 监听到达城市输入框的事件
     //query:监听 Dest：到达  Search:搜索
@@ -149,24 +152,43 @@ export default {
       });
     },
     // 出发城市下拉选择时触发
-        handleDepartSelect(item) {
-            this.form.departCity = item.value;
-            this.form.departCode = item.sort;
-        },
-        // 目标城市下拉选择时触发
-        handleDestSelect(item) {
-            this.form.destCity = item.value;
-            this.form.destCode = item.sort;
-        },
+    handleDepartSelect(item) {
+      this.form.departCity = item.value;
+      this.form.departCode = item.sort;
+    },
+    // 目标城市下拉选择时触发
+    handleDestSelect(item) {
+      this.form.destCity = item.value;
+      this.form.destCode = item.sort;
+    },
     // 确认选择日期时触发
-    handleDate(value) {},
+    handleDate(value) {
+      this.form.departDate=moment(value).format('YYYY-MM-DD')
+
+    },
 
     // 触发和目标城市切换时触发
     handleReverse() {},
 
     // 提交表单是触发
     handleSubmit() {
-      console.log(this.form);
+      //判断用户是否输入
+     if(!this.form.departCity){
+                this.$message.error("请输入出发城市");
+                return;
+            }
+            if(!this.form.destCity){
+                this.$message.error("请输入到达城市");
+                return;
+            }
+            if(!this.form.departDate){
+                this.$message.error("请选择时间");
+                return;
+            }
+      this.$router.push({
+        path:'/air/flights',
+        query:this.form
+      })
     }
   },
   mounted() {}
