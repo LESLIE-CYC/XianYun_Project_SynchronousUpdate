@@ -24,7 +24,16 @@
           </nuxt-link>
           <i class="el-icon-caret-bottom el-icon--right"></i>
         </el-row>
-        <el-dropdown-menu slot="dropdown" class="el-el-el">
+        <!-- 最新消息区域 -->
+        <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+          <el-button slot="reference">
+            <i class="el-icon-message-solid">&nbsp;消息</i>
+            <!-- 消息字体图标 -->
+            <i class="el-icon-caret-bottom"></i>
+            <!-- 倒三角字体图标 -->
+          </el-button>
+        </el-popover>
+        <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <nuxt-link to="#">个人中心</nuxt-link>
           </el-dropdown-item>
@@ -33,16 +42,19 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <!-- 不存在用户信息展示登录注册链接 -->
-      <nuxt-link to="user/login" class="account-link" v-else>
-        <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+
+      <!-- 用户没有注册过本站时就显示登录注册链接 -->
+      <nuxt-link to="/user/login" class="account-link" v-else>
+         <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
           <el-button slot="reference">
-            <i class="el-icon-message-solid">&nbsp;消息</i><!-- 消息字体图标 -->
-            <i class="el-icon-caret-bottom"></i><!-- 倒三角字体图标 -->
+            <i class="el-icon-message-solid">&nbsp;消息</i>
+            <!-- 消息字体图标 -->
+            <i class="el-icon-caret-bottom"></i>
+            <!-- 倒三角字体图标 -->
           </el-button>
-        </el-popover>&nbsp;
-        登录 / 注册
-      </nuxt-link>
+        </el-popover>
+      
+      登录 / 注册</nuxt-link>
     </el-row>
 
     <!-- 测试完成：能显示地球发动机的昵称 -->
@@ -54,6 +66,7 @@
 export default {
   methods: {
     //用户退出
+
     handleLogout() {
       this.$store.commit("user/setUserInfo", {
         token: "",
