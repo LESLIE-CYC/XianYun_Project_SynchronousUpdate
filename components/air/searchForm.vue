@@ -75,14 +75,23 @@ export default {
     // 出发城市输入框获得焦点时触发
     // value 是选中的值，cb是回调函数，接收要展示的列表
     queryDepartSearch(value, cb) {
+      //根据value的返回数据向后台发出请求
+      this.$axios({
+        url:'/airs/city',
+        params:{
+           name:value
+        }
+      }).then(res =>{
+        const {data} =res.data
+        //给每个data中都加了一个value属性
+        const newData = data.map(v=>{
+          v.value=v.name.replace('市',"");
+          return v;
+        })
+        console.log(newData)
+      })
       //数据后台返回的数据是
-      const arr = [
-        {value:'广州',sort:'CAN'},
-        {value:'广元',sort:'guangyuan'},
-        {value:'广安',sort:'guangan'}
-      ]
-      cb(arr)
-
+      cb(newData)
     },
 
     // 目标城市输入框获得焦点时触发
