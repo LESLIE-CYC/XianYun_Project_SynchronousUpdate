@@ -7,9 +7,9 @@
     <!-- 搜索广告栏 -->
     <el-row type="flex" justify="space-between">
         <!-- 搜索表单 -->
-        <div>
+        <div class="searchForm">
           <!-- 1.3使用搜索表单组件 -->
-          <searchForm></searchForm>
+          <SearchForm></SearchForm>
         </div>
 
         <!-- banner广告 -->
@@ -48,11 +48,11 @@
 
 <script>
 //1.1引入搜索表单组件
-import searchForm from '@/components/air/searchForm.vue'
+import SearchForm from '@/components/air/searchForm.vue'
 export default {
   components:{
       //1.2注册搜索表单组件
-      searchForm
+      SearchForm
     },
   data(){
     return{
