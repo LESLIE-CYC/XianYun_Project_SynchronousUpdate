@@ -39,7 +39,13 @@
       <!-- 出发时间区域 -->
       <el-form-item label="出发时间">
         <!-- change 用户确认选择日期时触发 -->
-        <el-date-picker v-model="form.departDate"  type="date" placeholder="请选择日期" style="width: 100%;" @change="handleDate"></el-date-picker>
+        <el-date-picker
+          v-model="form.departDate"
+          type="date"
+          placeholder="请选择日期"
+          style="width: 100%;"
+          @change="handleDate"
+        ></el-date-picker>
       </el-form-item>
       <!-- 搜索功能区域 -->
       <el-form-item label>
@@ -163,32 +169,37 @@ export default {
     },
     // 确认选择日期时触发
     handleDate(value) {
-      this.form.departDate=moment(value).format('YYYY-MM-DD')
-
+      this.form.departDate = moment(value).format("YYYY-MM-DD");
     },
 
-    // 触发和目标城市切换时触发
-    handleReverse() {},
+    // 触发和目标城市切换时触发，就是那个换字
+    handleReverse() {
+      const { departCity, departCode, destCity, destCode } = this.form;
+      this.form.departCity = destCity;
+      this.form.departCode = destCode;
+      this.form.destCity = departCity;
+      this.form.destCode = departCode;
+    },
 
     // 提交表单是触发
     handleSubmit() {
       //判断用户是否输入
-     if(!this.form.departCity){
-                this.$message.error("请输入出发城市");
-                return;
-            }
-            if(!this.form.destCity){
-                this.$message.error("请输入到达城市");
-                return;
-            }
-            if(!this.form.departDate){
-                this.$message.error("请选择时间");
-                return;
-            }
+      if (!this.form.departCity) {
+        this.$message.error("请输入出发城市");
+        return;
+      }
+      if (!this.form.destCity) {
+        this.$message.error("请输入到达城市");
+        return;
+      }
+      if (!this.form.departDate) {
+        this.$message.error("请选择时间");
+        return;
+      }
       this.$router.push({
-        path:'/air/flights',
-        query:this.form
-      })
+        path: "/air/flights",
+        query: this.form
+      });
     }
   },
   mounted() {}
