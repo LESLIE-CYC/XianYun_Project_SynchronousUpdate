@@ -1,65 +1,67 @@
 <template>
   <!-- 饿了么框架组件，开启弹性布布局，可以看官方文档-->
-  <el-row type="flex" class="header" justify="space-between" align="middle">
-    <!-- logo商标区域 -->
-    <div class="logo">
-      <img src="/logo.jpg" alt />
-    </div>
-    <!-- nav首页导航区域 -->
-    <el-row type="flex" class="hederNav">
-      <nuxt-link to="/">首页</nuxt-link>
-      <nuxt-link to="/post">旅游攻略</nuxt-link>
-      <nuxt-link to="/hotel">酒店</nuxt-link>
-      <nuxt-link to="/air">国内机票</nuxt-link>
+  <div class="header-wrapper">
+    <el-row type="flex" class="header" justify="space-between" align="middle">
+      <!-- logo商标区域 -->
+      <div class="logo">
+        <img src="/logo.jpg" alt />
+      </div>
+      <!-- nav首页导航区域 -->
+      <el-row type="flex" class="hederNav">
+        <nuxt-link to="/">首页</nuxt-link>
+        <nuxt-link to="/post">旅游攻略</nuxt-link>
+        <nuxt-link to="/hotel">酒店</nuxt-link>
+        <nuxt-link to="/air">国内机票</nuxt-link>
+      </el-row>
+
+      <!-- 登录/用户信息 -->
+      <el-row type="flex" align="middle" class="account-link">
+        <!-- 如果用户存在则展示用户信息，用户数据来自store -->
+        <el-dropdown v-if="$store.state.user.userInfo.token">
+          <el-row type="flex" align="middle" class="el-dropdown-link">
+            <nuxt-link to="#">
+              <img :src="$axios.defaults.baseURL + $store.state.user.userInfo.user.defaultAvatar" />
+              {{$store.state.user.userInfo.user.nickname}}
+            </nuxt-link>
+            <i class="el-icon-caret-bottom el-icon--right"></i>
+          </el-row>
+          <!-- 最新消息区域 -->
+          <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+            <el-button slot="reference">
+              <i class="el-icon-message-solid">&nbsp;消息</i>
+              <!-- 消息字体图标 -->
+              <i class="el-icon-caret-bottom"></i>
+              <!-- 倒三角字体图标 -->
+            </el-button>
+          </el-popover>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <nuxt-link to="#">个人中心</nuxt-link>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="handleLogout">退出</div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+
+        <!-- 用户没有注册过本站时就显示登录注册链接 -->
+        <nuxt-link to="/user/login" class="account-link" v-else>
+          <!-- 最新消息-->
+          <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+            <el-button slot="reference">
+              <i class="el-icon-message-solid">&nbsp;消息</i>
+              <!-- 消息字体图标 -->
+              <i class="el-icon-caret-bottom"></i>
+              <!-- 倒三角字体图标 -->
+            </el-button>
+          </el-popover>&nbsp;&nbsp;&nbsp;登录 / 注册
+        </nuxt-link>
+      </el-row>
+
+      <!-- 测试完成：能显示地球发动机的昵称 -->
+      <!-- {{$store.state.user.userInfo.user.nickname}} -->
     </el-row>
-
-    <!-- 登录/用户信息 -->
-    <el-row type="flex" align="middle" class="account-link">
-      <!-- 如果用户存在则展示用户信息，用户数据来自store -->
-      <el-dropdown v-if="$store.state.user.userInfo.token">
-        <el-row type="flex" align="middle" class="el-dropdown-link">
-          <nuxt-link to="#">
-            <img :src="$axios.defaults.baseURL + $store.state.user.userInfo.user.defaultAvatar" />
-            {{$store.state.user.userInfo.user.nickname}}
-          </nuxt-link>
-          <i class="el-icon-caret-bottom el-icon--right"></i>
-        </el-row>
-        <!-- 最新消息区域 -->
-        <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
-          <el-button slot="reference">
-            <i class="el-icon-message-solid">&nbsp;消息</i>
-            <!-- 消息字体图标 -->
-            <i class="el-icon-caret-bottom"></i>
-            <!-- 倒三角字体图标 -->
-          </el-button>
-        </el-popover>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <nuxt-link to="#">个人中心</nuxt-link>
-          </el-dropdown-item>
-          <el-dropdown-item>
-            <div @click="handleLogout">退出</div>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-
-      <!-- 用户没有注册过本站时就显示登录注册链接 -->
-      <nuxt-link to="/user/login" class="account-link" v-else>
-         <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
-          <el-button slot="reference">
-            <i class="el-icon-message-solid">&nbsp;消息</i>
-            <!-- 消息字体图标 -->
-            <i class="el-icon-caret-bottom"></i>
-            <!-- 倒三角字体图标 -->
-          </el-button>
-        </el-popover>
-      
-      登录 / 注册</nuxt-link>
-    </el-row>
-
-    <!-- 测试完成：能显示地球发动机的昵称 -->
-    <!-- {{$store.state.user.userInfo.user.nickname}} -->
-  </el-row>
+  </div>
 </template>
 
 <script>
