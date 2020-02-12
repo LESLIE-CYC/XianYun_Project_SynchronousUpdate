@@ -217,9 +217,10 @@ export default {
         return;
       }
       this.$router.push({
-        path: "/air/flights",
-        query: this.form
-      });
+               path: "/air/flights",
+               // query是url的参数
+               query: this.form
+           })
     }
   },
   mounted() {}
