@@ -26,14 +26,16 @@
             <i class="el-icon-caret-bottom el-icon--right"></i>
           </el-row>
           <!-- 最新消息区域 -->
-          <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
-            <el-button slot="reference">
-              <i class="el-icon-message-solid">&nbsp;消息</i>
-              <!-- 消息字体图标 -->
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              <i class="el-icon-message-solid"></i>
+              <span>消息通知</span>
               <i class="el-icon-caret-bottom"></i>
-              <!-- 倒三角字体图标 -->
-            </el-button>
-          </el-popover>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+               <el-dropdown-item>最新消息</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <nuxt-link to="#">个人中心</nuxt-link>
@@ -43,22 +45,11 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-
         <!-- 用户没有注册过本站时就显示登录注册链接 -->
         <nuxt-link to="/user/login" class="account-link" v-else>
-          <!-- 最新消息-->
-          <el-popover placement="top-start" width="80px" trigger="hover" content="最新消息">
-            <el-button slot="reference">
-              <i class="el-icon-message-solid">&nbsp;消息</i>
-              <!-- 消息字体图标 -->
-              <i class="el-icon-caret-bottom"></i>
-              <!-- 倒三角字体图标 -->
-              
-            </el-button>
-          </el-popover>&nbsp;&nbsp;&nbsp;登录 / 注册
+          &nbsp;&nbsp;&nbsp;登录 / 注册
         </nuxt-link>
       </el-row>
-
       <!-- 测试完成：能显示地球发动机的昵称 -->
       <!-- {{$store.state.user.userInfo.user.nickname}} -->
     </el-row>
@@ -108,7 +99,7 @@ export default {
       display: block;
       height: 60px;
       box-sizing: border-box;
-      padding: 0 30px;
+      padding: 0 23px;
       line-height: 60px;
       color: inherit;
       &:hover {
@@ -146,17 +137,6 @@ export default {
     font-size: 16px;
     color: #6b6d71;
   }
-  .el-personal {
-    a {
-      font-size: 12px;
-      color: #6b6d71;
-    }
-    &:hover {
-      color: red;
-    }
-  }
-  el-popover{
-    width: 20px;
-  }
+
 }
 </style>

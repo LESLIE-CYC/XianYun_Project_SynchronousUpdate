@@ -98,6 +98,8 @@ export default {
     queryDepartSearch(value, callback) {
       if (!value) {
         this.departData=[];
+        //修复用户光标未输入状态组件样式在缓冲bug
+        callback ([])
         return;
       }
       //根据value的返回数据向后台发出请求
@@ -145,6 +147,8 @@ export default {
     queryDestSearch(value, callback) {
       if (!value) {
         this.destData=[];
+        //修复用户光标未输入状态组件样式在缓冲的一样子的感觉
+        callback ([])
         return;
       }
       //根据value的返回数据向后台发出请求

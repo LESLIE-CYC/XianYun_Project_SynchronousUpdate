@@ -106,54 +106,40 @@ export default {
   methods: {
     // 处理发送验证码
     // 发送验证码
-handleSendCaptcha(){
-    if(!this.form.username){
-        this.$confirm('手机号码不能为空', '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
+    handleSendCaptcha() {
+      if (!this.form.username) {
+        this.$confirm("手机号码不能为空", "提示", {
+          confirmButtonText: "确定",
+          showCancelButton: false,
+          type: "warning"
+        });
         return;
-    }
+      }
 
-    if(this.form.username.length !== 11){
-        this.$confirm('手机号码格式错误', '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
+      if (this.form.username.length !== 11) {
+        this.$confirm("手机号码格式错误", "提示", {
+          confirmButtonText: "确定",
+          showCancelButton: false,
+          type: "warning"
+        });
         return;
-    }
+      }
 
-
-    this.$axios({
+      this.$axios({
         url: `/captchas`,
         method: "POST",
         data: {
-            tel: this.form.username
+          tel: this.form.username
         }
-    }).then(res => {
-        const {code} = res.data;
-        this.$confirm(`模拟手机验证码为：${code}`, '提示', {
-            confirmButtonText: '确定',
-            showCancelButton: false,
-            type: 'warning'
-        })
-    })
-},
-    // handleSendCaptcha() {
-    //   if (this.form.username == "") {
-    //     return;
-    //   }
-    //   //调用store仓库中的user
-    //   this.$store
-    //     .dispatch("user/sendCaptcha", { tel: this.ruleForm2.username })
-    //     .then(({ data }) => {
-    //       this.ruleForm2.captcha = data.code;
-    //       this.$message.success("模拟手机验证码:" + data.code);
-    //     });
-    // },
-
+      }).then(res => {
+        const { code } = res.data;
+        this.$confirm(`你输入的验证码为：${code}    ✔正确`, "提示", {
+          confirmButtonText: "确定",
+          showCancelButton: false,
+          type: "warning"
+        });
+      });
+    },
     // 注册
     handleRegSubmit() {
       this.$refs.form.validate(valid => {
