@@ -1,8 +1,8 @@
 <template>
   <div class="flight-item">
-    <div>
+    <div  @click="isShow = !isShow">
       <!-- 显示的机票信息 -->
-      <el-row type="flex" align="middle" class="flight-info" @click="isShow = !isShow">
+      <el-row type="flex" align="middle" class="flight-info">
         <el-col :span="6">
           <span>{{data.airline_name}}</span>
           {{data.flight_no}}
