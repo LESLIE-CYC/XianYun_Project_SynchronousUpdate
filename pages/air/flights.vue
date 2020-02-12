@@ -13,10 +13,10 @@
         </div>
 
         <!-- 航班信息 -->
-        <div>
           <!-- 2.3使用机票列表组件组件 -->
-          <FlightsItem></FlightsItem>
-        </div>
+          <FlightsItem
+          v-for='(item,index) in flightsData.flights' :key="index">  
+          </FlightsItem>
       </div>
 
       <!-- 侧边栏 -->
@@ -35,12 +35,38 @@ import FlightsItem from "@/components/air/flightsItem.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      //这里是机票的总数据，下分别有四个属性：info flights total options
+      flightsData:{}
+      /**
+       * 本地服务器返回的数据为Array(8)对象   线上服务器返回是Array(100)对象
+       * .data.data返回的数据有4个属性分别为：
+       * info:作用是：过虑筛选条件是展示用的
+       * flights:作用是：循环出当前页面航空公司返回的真实数据列表
+       * total: 作用是：拿到当前的数据到底有多少条显示在当前的页面在
+       * options：作用是：过虑的条件
+       * */ 
+    };
   },
   components: {
     //1.2注册列表头部组件 2.2注册机票列表组件组件
     FlightsListHead,
     FlightsItem
+  },
+  mounted(){
+    //向后台请求机票的真实列表数据
+    this.$axios({
+      url:'/airs',
+      params:this.$route.query
+    }).then(res=>{
+      //这里先打印一下看看后台给我们返回的真实数据
+      //返回了【总数据】就保存起来用
+      this.flightsData=res.data;
+
+
+    
+      
+    })
   }
 };
 </script>
