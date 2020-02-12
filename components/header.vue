@@ -47,12 +47,13 @@
         <!-- 用户没有注册过本站时就显示登录注册链接 -->
         <nuxt-link to="/user/login" class="account-link" v-else>
           <!-- 最新消息-->
-          <el-popover placement="top-start" width="80" trigger="hover" content="最新消息">
+          <el-popover placement="top-start" width="80px" trigger="hover" content="最新消息">
             <el-button slot="reference">
               <i class="el-icon-message-solid">&nbsp;消息</i>
               <!-- 消息字体图标 -->
               <i class="el-icon-caret-bottom"></i>
               <!-- 倒三角字体图标 -->
+              
             </el-button>
           </el-popover>&nbsp;&nbsp;&nbsp;登录 / 注册
         </nuxt-link>
@@ -153,6 +154,9 @@ export default {
     &:hover {
       color: red;
     }
+  }
+  el-popover{
+    width: 20px;
   }
 }
 </style>

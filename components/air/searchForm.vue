@@ -86,7 +86,7 @@ export default {
     // tab切换时触发
     handleSearchTab(item, index) {
       if(index==1){
-        this.$alert('亲,不能点击这里哦！这个页面还没做完了','提示',{
+        this.$alert('亲,不能点击这里哦！这个页面是还没做完的！下次记得不要再点了哦','提示',{
            confirmButtonText:'确定',
            type:'warning'
         })
@@ -97,6 +97,7 @@ export default {
     // value 是选中的值，callback回调函数，接收要展示的列表
     queryDepartSearch(value, callback) {
       if (!value) {
+        this.departData=[];
         return;
       }
       //根据value的返回数据向后台发出请求
@@ -143,6 +144,7 @@ export default {
     //query:监听 Dest：到达  Search:搜索
     queryDestSearch(value, callback) {
       if (!value) {
+        this.destData=[];
         return;
       }
       //根据value的返回数据向后台发出请求
@@ -317,4 +319,5 @@ export default {
     }
   }
 }
+
 </style>
