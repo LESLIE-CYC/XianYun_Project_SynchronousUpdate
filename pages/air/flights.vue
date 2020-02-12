@@ -13,10 +13,18 @@
         </div>
 
         <!-- 航班信息 -->
-          <!-- 2.3使用机票列表组件组件 -->
-          <FlightsItem
-          v-for='(item,index) in flightsData.flights' :key="index" :data='item'>  
-          </FlightsItem>
+        <!-- 2.3使用机票列表组件组件 -->
+        <FlightsItem v-for="(item,index) in dataList" :key="index" :data="item"></FlightsItem>
+        <!-- 分页组件区域 -->
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="pageIndex"
+          :page-sizes="[5,10,15,20]"
+          :page-size="pageSize"
+          layout="total,sizes, prev, pager, next,jumper"
+          :total="total"
+        ></el-pagination>
       </div>
 
       <!-- 侧边栏 -->
@@ -35,17 +43,39 @@ import FlightsItem from "@/components/air/flightsItem.vue";
 
 export default {
   // props:['data']，如果用这个就是表明是不名明，没有使用，就是报错的，可以用对象的方法
-  props:{
-    data:{
-      type:Object,
-      default:{},
+data(){
+  return{
+      type: Object,
+
+      flightsData: {},
+      // 当前页数
+      pageIndex: 1,
+      // 当前的条数
+      pageSize: 5,
+      // 总条数
+      total: 0  
+  }
+},
+  components: {
+    //1.2注册列表头部组件 2.2注册机票列表组件组件
+    FlightsListHead,
+    FlightsItem
+  },
+  computed: {
+    dataList() {
+      //判断flightsData有没有值
+      if (!this.flightsData.flights) {
+        return [];
+      }
+      //这里的第一页面是0-5数据，第二页是5-10的数据，第三页是10-15的数据
+      const arr = this.flightsData.flights.slice(
+        (this.pageIndex - 1) * this.pageSize,
+        this.pageIndex * this.pageSize
+      );
+      return arr;
     }
   },
-
-  data() {
-    return {
       //这里是机票的总数据，下分别有四个属性：info flights total options
-      flightsData:{}
       /**
        * 本地服务器返回的数据为Array(8)对象   线上服务器返回是Array(100)对象
        * .data.data返回的数据有4个属性分别为：
@@ -53,30 +83,31 @@ export default {
        * flights:作用是：循环出当前页面航空公司返回的真实数据列表
        * total: 作用是：拿到当前的数据到底有多少条显示在当前的页面在
        * options：作用是：过虑的条件
-       * */ 
-    };
-  },
-  components: {
-    //1.2注册列表头部组件 2.2注册机票列表组件组件
-    FlightsListHead,
-    FlightsItem
-  },
-  mounted(){
+       * */
+ 
+  mounted() {
     //向后台请求机票的真实列表数据
     this.$axios({
-      url:'/airs',
-      params:this.$route.query
-    }).then(res=>{
+      url: "/airs",
+      params: this.$route.query
+    }).then(res => {
       //这里先打印一下看看后台给我们返回的真实数据
       //返回了【总数据】就保存起来用
-      this.flightsData=res.data;
+      this.flightsData = res.data;
       console.log(res);
-      
-
-
-    
-      
-    })
+      //这里是修改总的条数
+      this.total = this.flightsData.total;
+    });
+  },
+  methods: {
+    //这里是切换【条数】的时候触发了的事件
+    handleSizeChang(index) {},
+    //这里是切换【页数】的时候触发了的事件
+    handleCurrentChange(index) {
+      //这时是可以打印出数据开看一下
+      console.log(index);
+      this.pageIndex = index;
+    }
   }
 };
 </script>
