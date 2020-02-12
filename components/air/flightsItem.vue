@@ -2,7 +2,7 @@
   <div class="flight-item">
     <div>
       <!-- 显示的机票信息 -->
-      <el-row type="flex" align="middle" class="flight-info">
+      <el-row type="flex" align="middle" class="flight-info" @click="isShow = !isShow">
         <el-col :span="6">
           <span>{{data.airline_name}}</span>
           {{data.flight_no}}
@@ -28,12 +28,12 @@
         </el-col>
       </el-row>
     </div>
-    <div class="flight-recommend">
+    <div class="flight-recommend" v-if="isShow">
       <!-- 隐藏的座位信息列表 -->
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="4">低价推荐</el-col>
         <el-col :span="20">
-          <!-- 这里是循环渲染出用户购买的是什么样:价格的仓位/有副驾驶舱.头等舱，经济舱，站票，拖运舱，挂票 -->
+          <!-- 这里是循环渲染出用户购买的是什么样:价格的仓位/有商务舱.头等舱，经济舱，-->
           <el-row
             type="flex"
             justify="space-between"
@@ -43,7 +43,8 @@
             :key="index"
           >
             <el-col :span="16" class="flight-sell-left">
-              <span>{{item.name}}</span> | {{item.supplierName}}
+              <span>{{item.name}}</span>
+              | {{item.supplierName}}
             </el-col>
             <el-col :span="5" class="price">￥{{item.settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
@@ -61,13 +62,40 @@
 
 <script>
 export default {
+    data(){
+        return{
+              isShow: false, // 是否展开列表
+        }
+    },
   props: {
     // 数据
     data: {
-      b: 456,
       type: Object,
       // 默认是空数组
       default: {}
+    }
+  },
+  computed: {
+    rankTime() {
+      //这个是到达的时间【14，30】
+      const end = this.data.arr_time.split(":");
+      //这个是出发的时间【14，30】
+      const start = this.data.dep_time.split(":");
+
+      //到达分钟与出发分钟
+      let endMin = end[0] * 60 + Number(end[1]);
+      let startMin = start[0] * 60 + Number(start[1]);
+      // 如果到达时间小于出发的时间，已经到达第二天
+      if (endMin < startMin) {
+        endMin += 24 * 60;
+      }
+      // 相隔分钟
+            const dis = endMin - startMin;
+      //小时
+      const hours  = Math.floor(dis / 60);
+      //分钟
+      const min = dis % 60;
+      return `${hours}小时${min}分`;
     }
   }
 };
