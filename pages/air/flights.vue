@@ -15,7 +15,7 @@
         <!-- 航班信息 -->
           <!-- 2.3使用机票列表组件组件 -->
           <FlightsItem
-          v-for='(item,index) in flightsData.flights' :key="index">  
+          v-for='(item,index) in flightsData.flights' :key="index" :data='item'>  
           </FlightsItem>
       </div>
 
@@ -34,6 +34,14 @@ import FlightsListHead from "@/components/air/flightsListHead.vue";
 import FlightsItem from "@/components/air/flightsItem.vue";
 
 export default {
+  // props:['data']，如果用这个就是表明是不名明，没有使用，就是报错的，可以用对象的方法
+  props:{
+    data:{
+      type:Object,
+      default:{},
+    }
+  },
+
   data() {
     return {
       //这里是机票的总数据，下分别有四个属性：info flights total options
@@ -62,6 +70,8 @@ export default {
       //这里先打印一下看看后台给我们返回的真实数据
       //返回了【总数据】就保存起来用
       this.flightsData=res.data;
+      console.log(res);
+      
 
 
     
