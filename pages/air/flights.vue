@@ -4,8 +4,8 @@
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
         <!-- 过滤条件 -->
-        <div></div>
-
+        <!-- 3.3使用条件过滤布局的组件-->
+        <FlightsFilters></FlightsFilters>
         <!-- 航班头部布局 -->
         <div>
           <!-- 1.3使用列表头部组件 -->
@@ -36,10 +36,16 @@
 </template>
 
 <script>
+/**
+ * 注意：老师说这个变量名的命名规则为统一使用每个单词首字母是大写来开头，这个是行业内的一个统一的标准， 
+ *      这个很重要，这样子也是有很多好处的，的确是这样子。
+ */
 //1.1引入列表头部组件
 import FlightsListHead from "@/components/air/flightsListHead.vue";
 //2.1引入机票列表组件组件
 import FlightsItem from "@/components/air/flightsItem.vue";
+//3.1引入条件过滤布局的组件
+import FlightsFilters from '@/components/air/flightsFilters.vue'
 
 export default {
   // props:['data']，如果用这个就是表明是不名明，没有使用，就是报错的，可以用对象的方法
@@ -57,9 +63,10 @@ data(){
   }
 },
   components: {
-    //1.2注册列表头部组件 2.2注册机票列表组件组件
+    //1.2注册列表头部组件 2.2注册机票列表组件组件 3.2注册条件过滤布局的组件
     FlightsListHead,
-    FlightsItem
+    FlightsItem,
+    FlightsFilters
   },
   computed: {
     dataList() {
