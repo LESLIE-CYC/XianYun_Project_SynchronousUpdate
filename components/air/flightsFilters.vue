@@ -47,8 +47,10 @@
             <el-col :span="4">
                 <el-select size="mini" v-model="airSize" placeholder="机型" @change="handleAirSize">
                     <el-option
-                    label="大"
-                    value="大">
+                     v-for="(item,index) in airSizeList" 
+                    :key="index" 
+                    :label="item.label"
+                    :value="item.value">
                     </el-option>
                 </el-select>
             </el-col>
@@ -75,6 +77,11 @@ export default {
             flightTimes: "",    // 出发时间
             company: "",        // 航空公司
             airSize: "",        // 机型大小
+            airSizeList:[
+                {label:'大',value:'L'},
+                {label:'中',value:'M'},
+                {label:'小',value:'S'}
+            ]
         }
     },
         
@@ -107,13 +114,16 @@ export default {
             
         },
 
-         // 选择航空公司时候触发
+         // 选择航空公司时候触发s
         handleCompany(value){
             
         },
 
          // 选择机型时候触发
         handleAirSize(value){
+              console.log(value);
+              
+            
            
         },
         
