@@ -7,7 +7,7 @@
         <!-- 3.3使用条件过滤布局的组件 -->
         <!-- 注意： 在父组件中的 :data="flightsData"的数据绑定就相当是子组件那边传过来的数据了↔↔↔然后呢：
                     父组件中的通return(返回数据) 就相当于接收了子组件从那边传过来了，好神奇的样子哦 -->
-        <FlightsFilters :data="flightsData"></FlightsFilters>
+        <FlightsFilters :data="flightsData" @getData="getData"></FlightsFilters>
         <!-- 航班头部布局 -->
         <div>
           <!-- 1.3使用列表头部组件 -->
@@ -119,7 +119,13 @@ data(){
       //这时是可以打印出数据开看一下
       console.log(index);
       this.pageIndex = index;
+    },
+    //自定义获取到组件的过滤后的数组
+    getData(array){
+      this.flightsData.flights= array
+      console.log(array)
     }
+    
   }
 };
 </script>
