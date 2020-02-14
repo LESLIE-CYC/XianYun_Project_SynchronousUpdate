@@ -4,8 +4,10 @@
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
         <!-- 过滤条件 -->
-        <!-- 3.3使用条件过滤布局的组件-->
-        <FlightsFilters></FlightsFilters>
+        <!-- 3.3使用条件过滤布局的组件 -->
+        <!-- 注意： 在父组件中的 :data="flightsData"的数据绑定就相当是子组件那边传过来的数据了↔↔↔然后呢：
+                    父组件中的通return(返回数据) 就相当于接收了子组件从那边传过来了，好神奇的样子哦 -->
+        <FlightsFilters :data="flightsData"></FlightsFilters>
         <!-- 航班头部布局 -->
         <div>
           <!-- 1.3使用列表头部组件 -->
@@ -48,7 +50,7 @@ import FlightsItem from "@/components/air/flightsItem.vue";
 import FlightsFilters from '@/components/air/flightsFilters.vue'
 
 export default {
-  // props:['data']，如果用这个就是表明是不名明，没有使用，就是报错的，可以用对象的方法
+  // props:['data']，如果用这个就是表明是不声明，没有使用，就是报错的，可以用对象的方法
 data(){
   return{
       type: Object,

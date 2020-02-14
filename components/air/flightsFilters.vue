@@ -66,6 +66,23 @@ export default {
             airSize: "",        // 机型大小
         }
     },
+        
+     /* 
+        【注意贤哥教文件命名规则，这里都是有对应关联起来的，在实际开发很能体会出行业内统一使用的文件命名的好处，不要怕命名文件夹】
+        注意：父子组件之间的通信就是 props down,events up，父组件通过 属性props向下传递数据给子组件，
+        子组件通过 事件events 给父组件发送消息。
+        可以理解成：components/air/flightsFilters(公共组件为：子组件)
+                   pages/air/flights(航空列表展示页面为：父组件)的】
+        现实中打电话案例：props:是父亲的手机号，这个props是放在flightsFilters(儿子手机里面)组件里面，这样子就能两者相关联起来，就能实现通信，传值了
+
+      */
+     //props:为父组件给子组件通信传数据的属性,里面是传一个原生的JS：data的数据对象给保存起来，到时方便获取与使用
+     props:{
+        data:{
+            type:Object,
+            default:{}
+        }
+     },
     methods: {
         // 选择机场时候触发
         handleAirport(value){

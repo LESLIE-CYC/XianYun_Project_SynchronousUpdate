@@ -82,9 +82,9 @@ export default {
       //这里是到达城市的数据列表
       destData: [],
       //日期相关配置
-      pickerOptions:{
-        disabledDate(time){
-          return time.getTime()+3600*1000*24<Date.now()
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() + 3600 * 1000 * 24 < Date.now();
         }
       }
     };
@@ -92,25 +92,62 @@ export default {
   methods: {
     // tab切换时触发
     handleSearchTab(item, index) {
-      if(index==1){
-        this.$alert('亲,不能点击这里哦！这个页面是还没做完的！下次记得不要再点了哦','提示',{
-           confirmButtonText:'确定',
-           type:'warning'
-        })
+      if (index == 1) {
+        this.$alert(
+          "亲,不能点击这里哦！这个页面是还没做完的！下次记得不要再点了哦",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            type: "warning"
+          }
+        );
       }
     },
+    //在这querySearch函数区域封装下面的根据value的返回数据向后台发出请求
+    querySearch(value) {
+      //根据value的返回数据向后台发出请求，别忘了这里是要提取出来封装好的，又忘记封装了
+      return this.$axios({
+        url: "/airs/city",
+        params: {
+          name: value
+        }
+      }).then(res => {
+        const { data } = res.data;
+        //给每个data中都加了一个value属性
+        const newData = data.map(v => {
+          v.value = v.name.replace("市", "");
+          return v;
+        });
+        return newData;
+        //callback是数据后台返回新的数据
+        // callback(newData);
+      });
+    }, 
+   
 
+    /* 结构学习注意点：
+              多用鼠标点击一个函数区域先把结构看懂，不要急着只想看到结果，日后错了也不知错在那里
+              现在的慢就是为了以后的快，学习是急不来的，不要怕错，现在多错了，要学会找出错误来，总结
+              怎么解决结构的问题，只有不看别人的代码能自已写的出来才是真会，多学习封装函数，多去尝试着封装
+              就当玩浏览器插件一样的感觉就好了，总会是有学会的一天，急不来，基础太差，没法子，一步
+              一步的来
+    */
     // 出发城市输入框获得焦点时触发
-    // value 是选中的值，callback回调函数，接收要展示的列表
+    // value 是选中的值，callback回调函数，接收要展示城市的列表
     queryDepartSearch(value, callback) {
       if (!value) {
-        this.departData=[];
+        this.departData = [];
         //修复用户光标未输入状态组件样式在缓冲bug
-        callback ([])
+        callback([]);
         return;
       }
-      //根据value的返回数据向后台发出请求
-      this.$axios({
+        //现在开始调用这个封装好的函数代码，两个向axios请求都是要的
+      this.querySearch(value).then(newData=>{
+        this.destData=newData;
+        callback(newData)
+      })
+      //根据value的返回数据向后台发出请求 【这里一样子是要封装的】
+      /* this.$axios({
         url: "/airs/city",
         params: {
           name: value
@@ -123,11 +160,11 @@ export default {
           return v;
         });
         //把newData保存到data里面去
-        this.departData = newData;
+        // this.departData = newData;
 
         //callback是数据后台返回新的数据
         callback(newData);
-      });
+      }); */
     },
     //出发城市输入框失去焦点时候就会触发
     //handle:处理 Depart:消失 Blur:焦点
@@ -153,13 +190,18 @@ export default {
     //query:监听 Dest：到达  Search:搜索
     queryDestSearch(value, callback) {
       if (!value) {
-        this.destData=[];
+        this.destData = [];
         //修复用户光标未输入状态组件样式在缓冲的一样子的感觉
-        callback ([])
+        callback([]);
         return;
       }
-      //根据value的返回数据向后台发出请求
-      this.$axios({
+       //现在开始调用这个封装好的函数代码，两个向axios请求都是要的
+      this.querySearch(value).then(newData=>{
+        this.departCity=newData;
+        callback(newData)
+      })
+      //又忘记封装了：根据value的返回数据向后台发出请求，看上面的封装，别忘了这里是要提取出来封装好的，
+   /*    this.$axios({
         url: "/airs/city",
         params: {
           name: value
@@ -175,7 +217,7 @@ export default {
         this.destData = newData;
         //callback是数据后台返回新的数据
         callback(newData);
-      });
+      }); */
     },
     // 出发城市下拉选择时触发
     handleDepartSelect(item) {
@@ -217,10 +259,10 @@ export default {
         return;
       }
       this.$router.push({
-               path: "/air/flights",
-               // query是url的参数
-               query: this.form
-           })
+        path: "/air/flights",
+        // query是url的参数
+        query: this.form
+      });
     }
   },
   mounted() {}
@@ -331,5 +373,4 @@ export default {
     }
   }
 }
-
 </style>
