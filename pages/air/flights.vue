@@ -3,7 +3,7 @@
     <el-row type="flex" justify="space-between">
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
-        <!-- 过滤条件 -->
+        <!-- 过滤条件区域，就是过滤 -->
         <!-- 3.3使用条件过滤布局的组件 -->
         <!-- 注意： 在父组件中的 :data="flightsData"的数据绑定就相当是子组件那边传过来的数据了↔↔↔然后呢：
                     父组件中的通return(返回数据) 就相当于接收了子组件从那边传过来了，好神奇的样子哦 -->
@@ -15,11 +15,10 @@
         </div>
 
         <!-- 航班信息 -->
-        <!-- 2.3使用机票列表组件组件 -->
+        <!-- 2.3使用机票列表组件组件-->
         <FlightsItem v-for="(item,index) in dataList" :key="index" :data="item"></FlightsItem>
-        <!-- 分页组件区域 -->
+        <!-- 分页组件区域  未知这个有什么用处" @size-change="handleSizeChange -->
         <el-pagination
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="pageIndex"
           :page-sizes="[5,10,15,20]"
@@ -55,7 +54,10 @@ data(){
   return{
       type: Object,
 
-      flightsData: {},
+      flightsData: {
+        info: {},
+        options: {},
+      },
       // 当前页数
       pageIndex: 1,
       // 当前的条数
@@ -65,10 +67,11 @@ data(){
   }
 },
   components: {
-    //1.2注册列表头部组件 2.2注册机票列表组件组件 3.2注册条件过滤布局的组件
+    //1.2注册列表头部组件 2.2注册机票列表组件组件 3.2注册条件过滤布局的组件 
     FlightsListHead,
     FlightsItem,
-    FlightsFilters
+    FlightsFilters,
+ 
   },
   computed: {
     dataList() {
