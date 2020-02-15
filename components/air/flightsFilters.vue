@@ -113,7 +113,7 @@ export default {
         handleFlightTimes(value){
             
         },
-
+         
          // 选择航空公司时候触发
         handleCompany(value){
            const newData = this.data.flights.filter(v => {
@@ -121,7 +121,25 @@ export default {
            })
            this.$emit("getData",newData)
         },
+        //这是监听所有条件发生时的变化
+        computed:{
+            filter(){
+                const newData=this.data.flights.filter(v=>{
+                    // 这个满足所有的条件下才运行的
+                    let valid=true;
 
+                    if(this.company && this.company !==v.airline_name){
+                        valid = false
+                    }
+                   if(this.company && this.airSize !==v.plane_size){
+                        valid = false
+                    }
+                    return valid
+                })
+                this.$emit('getData',newData)
+                return '';
+            }
+        },
          // 选择机型时候触发
         handleAirSize(value){
               console.log(value);

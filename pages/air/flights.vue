@@ -58,6 +58,18 @@ data(){
         info: {},
         options: {},
       },
+      /* 数据备份区域。什么备份？为什么要备份呢，备份数据有什么用啊？
+          原因：因为在这东航点击筛选时就变成了后台只返回了有关于东航相关数据的这两条数据了
+             那么，如果我想做国航，上航，南航这些相关的数据请求时，就变成了后台无数据返回了
+             因为运行时已经被东航的数据给改变了，所以为能做其它航班的筛选，就要把以前的原数据
+             给保存起来，不能被其它的数据给改变了原来的数据了
+      */
+       //数据现在开始备份了 空的，先着占位
+       cacheFlightsData:{
+         info:{},
+         flights:[],
+         options:{}
+       },
       // 当前页数
       pageIndex: 1,
       // 当前的条数
@@ -106,18 +118,19 @@ data(){
       //这里先打印一下看看后台给我们返回的真实数据
       //返回了【总数据】就保存起来用
       this.flightsData = res.data;
-      console.log(res);
+      //备份一下数据
+      this.cacheFlightsData={...res.data}
       //这里是修改总的条数
       this.total = this.flightsData.total;
     });
   },
-  methods: {
+  methods: { 
     //这里是切换【条数】的时候触发了的事件
     handleSizeChang(index) {},
     //这里是切换【页数】的时候触发了的事件
     handleCurrentChange(index) {
       //这时是可以打印出数据开看一下
-      this.pageIndex = index;
+      this.pageIndex = index; 
     },
     //自定义获取到组件的过滤后的数组
     getData(array){
@@ -133,7 +146,7 @@ data(){
 <style scoped lang="less">
 .contianer {
   width: 1000px;
-  margin: 20px auto;
+  margin: 20px auto;  
 }
 
 .flights-content {
