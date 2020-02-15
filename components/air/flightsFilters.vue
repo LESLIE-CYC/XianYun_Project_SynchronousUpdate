@@ -116,8 +116,8 @@ export default {
 
          // 选择航空公司时候触发
         handleCompany(value){
-           const newData = this.data.flights.filter(value=>{
-               return value.airline_name === value;
+           const newData = this.data.flights.filter(v => {
+               return v.airline_name === value;
            })
            this.$emit("getData",newData)
         },

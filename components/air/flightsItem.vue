@@ -75,10 +75,10 @@ export default {
       default: {}
     }
   },
-  // 两个机场之间的相隔时间
+  // 两个机场之间的相隔时间     
   computed: {
     separateTime() {
-      //这个是到达的时间【14，30】
+      //这个是到达的时间【14，30】 branch
       const end = this.data.arr_time.split(":");
       //这个是出发的时间【14，30】
       const start = this.data.dep_time.split(":");

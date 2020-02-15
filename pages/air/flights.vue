@@ -49,7 +49,7 @@ import FlightsItem from "@/components/air/flightsItem.vue";
 import FlightsFilters from '@/components/air/flightsFilters.vue'
 
 export default {
-  // props:['data']，如果用这个就是表明是不声明，没有使用，就是报错的，可以用对象的方法
+  // props:['data']，如果用这个就是不声明，没有使用，就是报错的，可以用对象的方法
 data(){
   return{
       type: Object,
@@ -98,10 +98,10 @@ data(){
        * */
  
   mounted() {
-    //向后台请求机票的真实列表数据
+    //向后台请求机票的真实列表数据 
     this.$axios({
       url: "/airs",
-      params: this.$route.query
+      params: this.$route.query  
     }).then(res => {
       //这里先打印一下看看后台给我们返回的真实数据
       //返回了【总数据】就保存起来用
