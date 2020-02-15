@@ -29,7 +29,7 @@
                     :label="`${item.from}:00 - ${item.to}:00`"
                     value="1"
                     >
-                    </el-option>
+                    </el-option>  
                 </el-select>
             </el-col>
             <!-- 显示航空公司的区域 -->
@@ -37,7 +37,7 @@
                 <el-select size="mini" v-model="company"  placeholder="航空公司" @change="handleCompany">
                     <el-option
                     v-for="(item,index) in data.options.company" 
-                    :key="index" 
+w                       :key="index" 
                     :label="item"
                     :value="item"> 
                     </el-option>
@@ -102,7 +102,7 @@ export default {
             default:{}
         }
      },
-    methods: {
+    methods: { 
         // 选择机场时候触发
         handleAirport(value){
             console.log(value)
@@ -114,10 +114,10 @@ export default {
             
         },
 
-         // 选择航空公司时候触发s
+         // 选择航空公司时候触发
         handleCompany(value){
            const newData = this.data.flights.filter(value=>{
-               return value.airline_name === value
+               return value.airline_name === value;
            })
            this.$emit("getData",newData)
         },

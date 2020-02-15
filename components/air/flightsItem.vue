@@ -14,7 +14,7 @@
               <span>{{data.org_airport_name}}{{data.org_airport_quay}}</span>
             </el-col>
             <el-col :span="8" class="flight-time">
-              <span>2时20分</span>
+              <span>{{separateTime}}</span>
             </el-col>
             <el-col :span="8" class="flight-airport">
               <strong>{{data.arr_time}}</strong>
@@ -75,8 +75,9 @@ export default {
       default: {}
     }
   },
+  // 两个机场之间的相隔时间
   computed: {
-    rankTime() {
+    separateTime() {
       //这个是到达的时间【14，30】
       const end = this.data.arr_time.split(":");
       //这个是出发的时间【14，30】

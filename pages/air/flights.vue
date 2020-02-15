@@ -117,13 +117,13 @@ data(){
     //这里是切换【页数】的时候触发了的事件
     handleCurrentChange(index) {
       //这时是可以打印出数据开看一下
-      console.log(index);
       this.pageIndex = index;
     },
     //自定义获取到组件的过滤后的数组
     getData(array){
       this.flightsData.flights= array
-      console.log(array)
+      this.total=array.length;
+     
     }
     
   }
