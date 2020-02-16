@@ -49,7 +49,7 @@ import FlightsItem from "@/components/air/flightsItem.vue";
 import FlightsFilters from '@/components/air/flightsFilters.vue'
 
 export default {
-  // props:['data']，如果用这个就是不声明，没有使用，就是报错的，可以用对象的方法
+  // props:['data']，如果用这个已声明了，但是没有去使用，就是报错的，可以用对象的方法
 data(){
   return{
       type: Object,

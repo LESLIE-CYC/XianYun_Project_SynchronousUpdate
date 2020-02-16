@@ -1,6 +1,6 @@
 <template>
   <div class="flight-item">
-    <div  @click="isShow = !isShow">
+    <div @click="isShow = !isShow">
       <!-- 显示的机票信息 -->
       <el-row type="flex" align="middle" class="flight-info">
         <el-col :span="6">
@@ -48,7 +48,7 @@
             </el-col>
             <el-col :span="5" class="price">￥{{item.settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
-              <el-button type="warning" size="mini">选定</el-button>
+              <el-button type="warning" size="mini" @click="handleToOrer(item)">选定</el-button>
               <p>剩余：{{item.discount}}</p>
             </el-col>
           </el-row>
@@ -62,11 +62,11 @@
 
 <script>
 export default {
-    data(){
-        return{
-              isShow: false, // 是否展开列表
-        }
-    },
+  data() {
+    return {
+      isShow: false // 是否展开列表
+    };
+  },
   props: {
     // 数据
     data: {
@@ -75,7 +75,7 @@ export default {
       default: {}
     }
   },
-  // 两个机场之间的相隔时间     
+  // 两个机场之间的相隔时间
   computed: {
     separateTime() {
       //这个是到达的时间【14，30】 branch
@@ -91,12 +91,25 @@ export default {
         endMin += 24 * 60;
       }
       // 相隔分钟
-            const dis = endMin - startMin;
+      const dis = endMin - startMin;
       //小时
-      const hours  = Math.floor(dis / 60);
+      const hours = Math.floor(dis / 60);
       //分钟
       const min = dis % 60;
       return `${hours}小时${min}分`;
+    }
+  },
+  //这里是跳转到订单页的，看好了对页面点击跳转的变量为：handleToOrer
+  methods: {
+    handleTorder(item) {
+      tihs.log(item, seat_xi);
+      this.$router.pan({
+        path: "/air/order",
+        query: {
+          id: this.data.id,
+          seat_xid
+        }
+      });
     }
   }
 };
