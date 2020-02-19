@@ -13,7 +13,6 @@
         <nuxt-link to="/hotel">酒店</nuxt-link>
         <nuxt-link to="/air">国内机票</nuxt-link>
       </el-row>
-
       <!-- 登录/用户信息 -->
       <el-row type="flex" align="middle" class="account-link">
         <!-- 如果用户存在则展示用户信息，用户数据来自store -->
@@ -25,17 +24,18 @@
             </nuxt-link>
             <i class="el-icon-caret-bottom el-icon--right"></i>
           </el-row>
-          <!-- 最新消息区域 -->
-          <el-dropdown>
+          <!--用户提示消息•状态为•已登录•鼠标点击时会触发-->
+          <el-dropdown trigger="click">
             <span class="el-dropdown-link">
-              <i class="el-icon-message-solid"></i>
-              <span>消息通知</span>
-              <i class="el-icon-caret-bottom"></i>
+               &nbsp;&nbsp;&nbsp;<i class="el-icon-message-solid"></i>
+              铃声通知
+              <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-               <el-dropdown-item>最新消息</el-dropdown-item>
+              <el-dropdown-item>最新消息</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <!--已登录•个人中心-->
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <nuxt-link to="#">个人中心</nuxt-link>
@@ -45,13 +45,9 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <!-- 用户没有注册过本站时就显示登录注册链接 -->
-        <nuxt-link to="/user/login" class="account-link" v-else>
-          &nbsp;&nbsp;&nbsp;登录 / 注册
-        </nuxt-link>
+        <!--未注册•游客-->
+        <nuxt-link to="/user/login" class="account-link" v-else>&nbsp;&nbsp;&nbsp;登录 / 注册</nuxt-link>
       </el-row>
-      <!-- 测试完成：能显示地球发动机的昵称 -->
-      <!-- {{$store.state.user.userInfo.user.nickname}} -->
     </el-row>
   </div>
 </template>
@@ -60,7 +56,6 @@
 export default {
   methods: {
     //用户退出
-
     handleLogout() {
       this.$store.commit("user/setUserInfo", {
         token: "",
@@ -68,9 +63,7 @@ export default {
       });
     }
   },
-  mounted() {
-    // console.log(this.$store.state.user.name)
-  }
+  mounted() {}
 };
 </script>
 
@@ -137,6 +130,5 @@ export default {
     font-size: 16px;
     color: #6b6d71;
   }
-
 }
 </style>
