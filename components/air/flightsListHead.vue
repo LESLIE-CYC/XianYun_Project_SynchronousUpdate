@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是航空信息•组件 -->
     <el-row class="flight-title">
         <el-col :span="5">
             航空信息

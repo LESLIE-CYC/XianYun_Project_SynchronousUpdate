@@ -1,6 +1,7 @@
 <template>
-  <!-- 饿了么框架组件，开启弹性布布局，可以看官方文档-->
+<!-- 这个是所有页面•头部页面的•公共组件 -->
   <div class="header-wrapper">
+      <!-- 饿了么框架组件，开启弹性布布局，可以看官方文档-->
     <el-row type="flex" class="header" justify="space-between" align="middle">
       <!-- logo商标区域 -->
       <div class="logo">

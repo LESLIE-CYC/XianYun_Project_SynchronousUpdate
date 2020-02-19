@@ -1,4 +1,5 @@
 <template>
+<!-- 这里是pages:页•展示/航班信息页面 -->
   <section class="contianer">
     <el-row type="flex" justify="space-between">
       <!-- 顶部过滤列表 -->
@@ -108,7 +109,6 @@ data(){
        * total: 作用是：拿到当前的数据到底有多少条显示在当前的页面在
        * options：作用是：过虑的条件
        * */
- 
   mounted() {
     //向后台请求机票的真实列表数据 
     this.$axios({

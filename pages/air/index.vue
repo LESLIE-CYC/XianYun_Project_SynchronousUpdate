@@ -1,9 +1,9 @@
 <template>
+<!-- 这里是pages:页•展示/国内机票页面 -->
   <section class="container">
     <h2 class="air-title"><span class="iconfont iconfeiji"></span>
       <i>国内机票</i>
     </h2>
-
     <!-- 搜索广告栏 -->
     <el-row type="flex" justify="space-between">
         <!-- 搜索表单 -->
@@ -11,13 +11,11 @@
           <!-- 1.3使用搜索表单组件 -->
           <SearchForm></SearchForm>
         </div>
-
         <!-- banner广告 -->
         <div class="sale-banner">
             <img src="http://157.122.54.189:9093/images/pic_sale.jpeg">
         </div>
     </el-row>
-
     <!-- 广告 -->
     <el-row type="flex" class="statement">
       <el-col :span="8">
@@ -33,15 +31,12 @@
         <span>7x24小时服务</span>
       </el-col>
     </el-row>
-
     <h2 class="air-sale-title">
       <span class="iconfont icontejiajipiao"></span>
       <i>特价机票</i>
     </h2>
-
     <!-- 特价机票 -->
     <div class="air-sale">
-        
     </div>
   </section>
 </template>

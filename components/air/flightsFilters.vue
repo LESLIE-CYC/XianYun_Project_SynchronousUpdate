@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是☛单程与↔往返的•组件区域-->
     <div class="filters">
         <!--  左上角显示单程广州-上海/2019-06-17的区域 -->
         <el-row type="flex" class="filters-top" justify="space-between" align="middle">

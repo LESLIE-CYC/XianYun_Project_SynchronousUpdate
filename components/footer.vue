@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是所有页面•底部的公共组件 -->
     <div class="footer-wrapper">
         <div class="footer">
             <el-row class="info-list">

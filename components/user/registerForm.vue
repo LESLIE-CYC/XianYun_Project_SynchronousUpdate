@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是表单注册页面•组件 -->
   <el-form :model="form" ref="form" :rules="rules" class="form">
     <el-form-item class="form-item" prop="username">
       <el-input placeholder="用户名手机" v-model="form.username"></el-input>

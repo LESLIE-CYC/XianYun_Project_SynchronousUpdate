@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是出发城市/到达城市/出发时间区域•组件-->
   <div class="search-form">
     <!-- 头部tab拦的切换区域 -->
     <el-row type="flex" class="search-tab">

@@ -1,4 +1,5 @@
 <template>
+<!-- 这个是机票信息列表•组件-->
   <div class="flight-item">
     <div @click="isShow = !isShow">
       <!-- 显示的机票信息 -->
