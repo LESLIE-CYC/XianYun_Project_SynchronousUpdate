@@ -22,7 +22,7 @@
         <!-- 输入框 -->
         <el-row type="flex" align="middle" class="search-input">
           <input :placeholder="options[current].placeholder" />
-          <i class="el-icon-search"></i>
+          <i class="el-icon-search" @click='searchClick'></i><!-- A.2点击搜索图标后跳转到酒店页面 -->
         </el-row>
       </div>
     </div>
@@ -43,11 +43,11 @@ export default {
       options: [
         {
           text: "攻略",
-          placeholder: "搜索你想要去的城市"
+          placeholder: "请搜索你心目中梦幻迷离般的旅游胜地吧！"
         },
         {
           text: "酒店",
-          placeholder: "请你输入你想要搜索的酒店"
+          placeholder: "请输入您需要入住酒店的城市名称: 例如---北京市?"
         },
         {
           text: "订票",
@@ -57,6 +57,7 @@ export default {
       current: 0
     };
   },
+
   methods: {
     tabClick(index) {
       //进行判断然后跳转到国内机票页面
@@ -65,7 +66,11 @@ export default {
       }
       this.current = index;
     }
-  }
+  },
+   //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
+    searchClick(){
+      this.$router.push('/hotel') //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
+    }
 };
 </script>
 
