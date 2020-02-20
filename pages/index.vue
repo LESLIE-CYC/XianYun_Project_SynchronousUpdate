@@ -15,15 +15,28 @@
       <div class="search-bar">
         <!-- tab栏 -->
         <el-row type="flex" class="search-tab">
-          <span v-for="(item,index) in options" :key="index" @click="tabClick(index)" :class="{active: current ===index}">
+          <span
+            v-for="(item,index) in options"
+            :key="index"
+            @click="tabClick(index)"
+            :class="{active: current ===index}"
+          >
             <i>{{item.text}}</i>
           </span>
         </el-row>
         <!-- 输入框 -->
         <el-row type="flex" align="middle" class="search-input">
           <input :placeholder="options[current].placeholder" />
-          <i class="el-icon-search" @click='searchClick'></i><!-- A.2点击搜索图标后跳转到酒店页面 -->
+          <i class="el-icon-search" @click="searchClick"></i>
+          <!-- A.2点击搜索图标后跳转到酒店页面 -->
         </el-row>
+        <!-- 城市下拉表 -->
+        <el-tabs v-model="townName" @tab-click="handleClick">
+          <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+          <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+        </el-tabs>
       </div>
     </div>
   </div>
@@ -33,6 +46,7 @@
 export default {
   data() {
     return {
+      townName: 'second',
       banners: [
         "http://157.122.54.189:9095/assets/images/th01.jfif",
         "http://157.122.54.189:9095/assets/images/th02.jfif",
@@ -61,16 +75,20 @@ export default {
   methods: {
     tabClick(index) {
       //进行判断然后跳转到国内机票页面
-      if(index ===2){
-        this.$router.push('/air')
+      if (index === 2) {
+        this.$router.push("/air");
       }
       this.current = index;
-    }
+    },
+    //下拉城市
+     handleClick(tab, event) {
+        console.log(tab, event);
+      }
   },
-   //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
-    searchClick(){
-      this.$router.push('/hotel') //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
-    }
+  //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
+  searchClick() {
+    this.$router.push("/hotel"); //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
+  }
 };
 </script>
 
