@@ -6,7 +6,7 @@
         <div
           class="banner"
           :style="`background:url(${item})center center no-repeat;
-         background-size:100%`"
+         background-size:`"
         ></div>
       </el-carousel-item>
     </el-carousel>
@@ -155,7 +155,7 @@ export default {
         position: absolute;
         z-index: 2;
         display: block;
-        width: 100%;
+        // width: 100%;
         height: 100%;
         line-height: 30px;
         text-align: center;
@@ -166,8 +166,7 @@ export default {
         left: 0;
         top: 0;
         display: block;
-        content: "";
-        width: 100%;
+        // width: 100%;
         height: 100%;
         border: 1px rgba(255, 255, 255, 0.2) solid;
         border-bottom: none;
