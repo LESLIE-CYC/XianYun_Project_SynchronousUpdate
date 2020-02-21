@@ -54,7 +54,6 @@ export default {
 data(){
   return{
       type: Object,
-
       flightsData: {
         info: {},
         options: {},

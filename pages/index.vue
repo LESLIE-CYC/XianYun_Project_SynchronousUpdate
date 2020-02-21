@@ -24,19 +24,32 @@
             <i>{{item.text}}</i>
           </span>
         </el-row>
-        <!-- 输入框 -->
+        <!-- 三个小的•输入框 -->
         <el-row type="flex" align="middle" class="search-input">
           <input :placeholder="options[current].placeholder" />
           <i class="el-icon-search" @click="searchClick"></i>
-          <!-- A.2点击搜索图标后跳转到酒店页面 -->
+          <!-- A.2点击搜索图标后跳转到酒店页面 搜索-->
         </el-row>
-        <!-- 城市下拉表 -->
-        <el-tabs v-model="townName" @tab-click="handleClick">
-          <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-          <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-        </el-tabs>
+
+        <!-- 城市下拉•可选择按•国内热门•ABCD字母•国际等这个城市，当用户鼠标的光标聚焦在输入框里面时 -->
+        <!-- 注：这时只是想做这么一个效果，反台可能并没相关的城市的数据 -->
+        <!--城市下拉列表  -->
+        <div class="cityDropDownList">
+          <el-tabs type="border-card" v-model='townName'>
+            <el-tab-pane label="热门城市" @click='handleClick'
+             name="townName"
+             v-for="(item) in townList" 
+             :key="item.type">
+             <div v-for="v in item.children" :key='v.city'>{{v.desc}}</div>
+            </el-tab-pane>
+            <el-tab-pane label="推荐城市" @click='handleClick'>配置管理</el-tab-pane>
+            <el-tab-pane label="奔向海岛" @click='handleClick'>角色管理</el-tab-pane>
+            <el-tab-pane label="主题推荐" @click='handleClick'>定时任务补偿</el-tab-pane>
+            <el-tab-pane label="港澳台" @click='handleClick'>定时任务补偿</el-tab-pane>
+            <el-tab-pane label="国际" @click='handleClick'>定时任务补偿</el-tab-pane>
+            <el-tab-pane label="已去过" @click='handleClick'>已去过城市记录：</el-tab-pane>
+          </el-tabs>
+        </div>
       </div>
     </div>
   </div>
@@ -46,7 +59,8 @@
 export default {
   data() {
     return {
-      townName: 'second',
+      townList:{},
+      townName: "second",
       banners: [
         "http://157.122.54.189:9095/assets/images/th01.jfif",
         "http://157.122.54.189:9095/assets/images/th02.jfif",
@@ -61,15 +75,28 @@ export default {
         },
         {
           text: "酒店",
-          placeholder: "请输入您需要入住酒店的城市名称: 例如---北京市?"
+          placeholder: "请输入你想入住酒店的城市名称•例如:北京市?"
         },
         {
           text: "订票",
           placeholder: ""
         }
       ],
-      current: 0
+      current: 0,
+      //景点 城市 ，展示在酒店的搜索的区域位置
+      guangzhou:[{
+        scenics:[],
+      }],
+      total:100,
     };
+    console.log('guangzhou')
+  },
+  mounted(){
+    this.$axios({
+      url:"/posts/cities",
+    }).then(res =>{
+      console.log(res)
+    })
   },
 
   methods: {
@@ -80,14 +107,10 @@ export default {
       }
       this.current = index;
     },
-    //下拉城市
-     handleClick(tab, event) {
-        console.log(tab, event);
-      }
-  },
-  //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
-  searchClick() {
-    this.$router.push("/hotel"); //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
+    //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
+    searchClick() {
+      this.$router.push("/hotel"); //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
+    },
   }
 };
 </script>
@@ -97,6 +120,10 @@ export default {
   height: 700px;
 }
 .banner-content {
+  //注：要使用这个 /deep/ 可以改组件的样式，不是使用.class不可以的•方法是：在element组件的外面包一个div盒子
+  .cityDropDownList/deep/{
+     margin-top:3px;
+  }
   z-index: 9;
   width: 1000px;
   position: absolute;
@@ -104,12 +131,10 @@ export default {
   top: 45%;
   margin-left: -500px;
   border-top: 1px transparent solid;
-
   .search-bar {
     width: 552px;
     margin: 0 auto;
   }
-
   .search-tab {
     .active {
       i {
@@ -119,7 +144,6 @@ export default {
         background: #eee;
       }
     }
-
     span {
       width: 82px;
       height: 36px;
@@ -127,7 +151,6 @@ export default {
       position: relative;
       margin-right: 8px;
       cursor: pointer;
-
       i {
         position: absolute;
         z-index: 2;
@@ -138,7 +161,6 @@ export default {
         text-align: center;
         color: #fff;
       }
-
       &:after {
         position: absolute;
         left: 0;
@@ -157,7 +179,6 @@ export default {
       }
     }
   }
-
   .search-input {
     width: 550px;
     height: 46px;
@@ -166,7 +187,6 @@ export default {
     border: 1px rgba(255, 255, 255, 0.2) solid;
     border-top: none;
     box-sizing: unset;
-
     input {
       flex: 1;
       height: 20px;
@@ -175,7 +195,6 @@ export default {
       border: 0;
       font-size: 16px;
     }
-
     .el-icon-search {
       cursor: pointer;
       font-size: 22px;
