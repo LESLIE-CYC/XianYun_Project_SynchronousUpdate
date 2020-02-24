@@ -43,7 +43,7 @@
 
 <script>
 //1.1引入搜索表单组件
-import SearchForm from '@/components/air/searchForm.vue'
+import VueMap from '@/components/map/vue-map.vue'
 export default {
   components:{
       //1.2注册搜索表单组件

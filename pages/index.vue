@@ -34,20 +34,11 @@
         <!-- 城市下拉•可选择按•国内热门•ABCD字母•国际等这个城市，当用户鼠标的光标聚焦在输入框里面时 -->
         <!-- 注：这时只是想做这么一个效果，反台可能并没相关的城市的数据 -->
         <!--城市下拉列表  -->
+        <!-- v-for="(item) in townList"  -->
         <div class="cityDropDownList">
-          <el-tabs type="border-card" v-model='townName'>
-            <el-tab-pane label="热门城市" @click='handleClick'
-             name="townName"
-             v-for="(item) in townList" 
-             :key="item.type">
-             <div v-for="v in item.children" :key='v.city'>{{v.desc}}</div>
-            </el-tab-pane>
-            <el-tab-pane label="推荐城市" @click='handleClick'>配置管理</el-tab-pane>
-            <el-tab-pane label="奔向海岛" @click='handleClick'>角色管理</el-tab-pane>
-            <el-tab-pane label="主题推荐" @click='handleClick'>定时任务补偿</el-tab-pane>
-            <el-tab-pane label="港澳台" @click='handleClick'>定时任务补偿</el-tab-pane>
-            <el-tab-pane label="国际" @click='handleClick'>定时任务补偿</el-tab-pane>
-            <el-tab-pane label="已去过" @click='handleClick'>已去过城市记录：</el-tab-pane>
+          <el-tabs type="border-card" v-model='townName'
+          v-for="(item1,index1) in data_List" :key=index1>
+            {{item1.type}}{{item1.city}}
           </el-tabs>
         </div>
       </div>
@@ -59,6 +50,7 @@
 export default {
   data() {
     return {
+      data_List:[],
       townList:{},
       townName: "second",
       banners: [
@@ -84,19 +76,22 @@ export default {
       ],
       current: 0,
       //景点 城市 ，展示在酒店的搜索的区域位置
-      guangzhou:[{
+      townList:[{
         scenics:[],
       }],
       total:100,
     };
-    console.log('guangzhou')
+    console.log('townList')
   },
   mounted(){
     this.$axios({
       url:"/posts/cities",
     }).then(res =>{
       console.log(res)
+    //下面是循环这里
+      this.data_List = res.data.data
     })
+    console.log('data_List')
   },
 
   methods: {
@@ -107,10 +102,15 @@ export default {
       }
       this.current = index;
     },
+    //测试上传是否成功
     //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
     searchClick() {
       this.$router.push("/hotel"); //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
     },
+    handleClick(index){
+      // console.log(index)
+      this.townList=index
+    }
   }
 };
 </script>
@@ -118,6 +118,7 @@ export default {
 <style scope lang="less">
 .banner {
   height: 700px;
+  min-width: 1000px;
 }
 .banner-content {
   //注：要使用这个 /deep/ 可以改组件的样式，不是使用.class不可以的•方法是：在element组件的外面包一个div盒子
@@ -155,7 +156,7 @@ export default {
         position: absolute;
         z-index: 2;
         display: block;
-        // width: 100%;
+        width: 100%;
         height: 100%;
         line-height: 30px;
         text-align: center;
@@ -166,7 +167,8 @@ export default {
         left: 0;
         top: 0;
         display: block;
-        // width: 100%;
+        content: "";
+        width: 100%;
         height: 100%;
         border: 1px rgba(255, 255, 255, 0.2) solid;
         border-bottom: none;

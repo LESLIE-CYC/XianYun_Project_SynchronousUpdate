@@ -34,6 +34,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    //高德地图☛插件配置
+    '~/plugins/vue-map',
     '@/plugins/element-ui',
     { src: '@/plugins/localStorage', ssr: false }
     
