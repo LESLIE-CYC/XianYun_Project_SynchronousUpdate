@@ -14,7 +14,7 @@
       <el-col :span="5">
         <div class="grid-content bg-purple">
           <div class="changeCity">
-            <el-input v-model="input" placeholder="切换城市"></el-input>
+            <el-input v-model="input" placeholder="↕你想切换城市吗？点这里切换"></el-input>
           </div>
         </div>
       </el-col>
@@ -27,8 +27,8 @@
                 v-model="value6"
                 type="daterange"
                 range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+                start-placeholder="开始入住日期"
+                end-placeholder="离店结束日期"
               ></el-date-picker>
             </div>
           </div>
@@ -43,7 +43,7 @@
                 popper-class="my-autocomplete"
                 v-model="state3"
                 :fetch-suggestions="querySearch"
-                placeholder="人数未定"
+                placeholder="人数是不是还没确定啊？"
                 @select="handleSelect"
               >
                 <i class="el-icon-user-solid el-input__icon" slot="suffix" @click="handleIconClick"></i>
@@ -91,6 +91,7 @@
               </div>
             </el-collapse-item>
             <el-collapse-item title="☛点击展开☛--更多区域:" name="2">
+              <div>更多的定位信息：</div>
               <div class="stillMore">
                 <a href="http://">人民广场</a>
                 <a href="http://">城市镇</a>
@@ -103,7 +104,7 @@
                 <a href="http://">吉山村</a>
               </div>
             </el-collapse-item>
-            <el-collapse-item title="☛点击展开☛看一下其它网友对均价评分： ★★★★★ + 点赞 ♕♕♕♕♕" name="3">
+            <el-collapse-item title="☛点击展开☛你想看一下网友对酒店：均价评分吗？： ★★★★★ + 点赞 ♕♕♕♕♕" name="3">
               <div class="grade">
                 <!-- 注☛：用户评分•第一种价格•模板区域 -->
                 <el-tooltip
@@ -113,9 +114,8 @@
                   placement="top"
                 >
                   <el-button>
-                    <div>
-                      你评分一下？
-                      <span>均价：￥ 332</span>
+                    <div class="praise">
+                      <span>评分-均价：￥ 200</span>
                     </div>
                     <el-rate v-model="value3" show-text></el-rate>
                   </el-button>
@@ -128,9 +128,8 @@
                   placement="top"
                 >
                   <el-button>
-                    <div>
-                      你评分一下？
-                      <span>均价：￥ 521</span>
+                    <div class="praise">
+                      <span>评分-均价：￥ 400</span>
                     </div>
                     <el-rate v-model="value3" show-text></el-rate>
                   </el-button>
@@ -143,31 +142,39 @@
                   placement="top"
                 >
                   <el-button>
-                    <div>
-                      你评分一下？
-                      <span>均价：￥ 768</span>
+                    <div class="praise">
+                      <span>评分-均价：￥ 600</span>
                     </div>
                     <el-rate v-model="value3" show-text></el-rate>
                   </el-button>
                 </el-tooltip>
               </div>
             </el-collapse-item>
-            <el-collapse-item title="☛点击展开☛世界著明酒店☛图片集☛✳✳✳✳✳✳" name="4">
-              <div>世界酒店预览☛：以下的图片为最新摄影❤↕⇲来自官方摄影↕⇱❤</div>
+            <el-collapse-item title="☛点击展开☛世界著明酒店☛图片集☛🎦🎦🎦" name="4">
+              <div>世界酒店预览：以下☟的图片为最新摄影❤↕⇲来自官方摄影↕⇱❤</div>
             </el-collapse-item>
+            <!-- 注☛：图片展示点位•模板区域 -->
+            <div class="block">
+              <!-- <span class="demonstration">自定义</span> -->
+              <el-image :src="src"></el-image>
+            </div>
           </el-collapse>
         </div>
 
         <!-- 注☛：高德地图•布局容器•右边•模板区域 -->
         <el-main>
-          <!-- <div>高德地图:最懂你心思的小助手哦！</div> -->
-          <VueMap></VueMap>
+          <VueMap>
+            <div>高德地图:最懂你心思的小助手哦！</div>
+          </VueMap>
         </el-main>
       </el-container>
     </div>
+
     <!-- 注☛:轮播图•展示酒店•广告专用 -->
     <div class="block">
-      <span class="demonstration">❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤闻文于世界的☛世界酒店排名☛广告栏专用☛黑马程序员❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤</span>
+      <span
+        class="demonstration"
+      >☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛闻文于世界的•世界酒店排名•广告栏专用•黑马程序员☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚</span>
       <el-carousel trigger="click" height="150px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3>{{ item }}</h3>
@@ -192,7 +199,9 @@ export default {
       //注☛：详细定位地理位置•数据返回区域
       activeNames: ["1"],
       //注☛：让用户评分•数据返回区域
-      value3: null
+      value3: null,
+      //
+      src: "http://157.122.54.189:9095/assets/images/th01.jfif"
     };
   },
   components: {
@@ -354,13 +363,56 @@ export default {
   }
   //注☛：查看价格•样式区域
   .checkThePrice/deep/.el-col {
-    margin-left: 150px;
-    width: 120px;
+    margin-left: 140px;
+    width: 1px;
   }
   //注：☛容器布局•样式区域
   .layoutContainer/deep/.el-container {
     .accordionLeft {
-      width: 50%;
+      width: 60%;
+    }
+    //注☛：高德地图•样式设置
+    .container {
+      width: 500px;
+      height: 100%;
+      transform: translate3d(-50%, -50%, 0);
+      border: 2px solid #999;
+    }
+    ////注☛：提示给用户的信息•样式设置
+    .search-box {
+      z-index: 5;
+      width: 70%;
+      left: 13%;
+      top: 10px;
+      height: 30px;
+    }
+    .search-box {
+      input {
+        width: 80%;
+        height: 100%;
+        border: 1px solid #30ccc1;
+        padding: 0 8px;
+        outline: none;
+      }
+    }
+    .search-box {
+      button {
+        float: left;
+        width: 20%;
+        height: 100%;
+        background: #30ccc1;
+        border: 1px solid #30ccc1;
+        color: #fff;
+        outline: none;
+      }
+    }
+    .tip-box {
+      width: 100%;
+      max-height: 260px;
+      position: absolute;
+      top: 30px;
+      overflow-y: auto;
+      background-color: #fff;
     }
   }
   .el-header,
@@ -398,6 +450,9 @@ export default {
     line-height: 320px;
   }
   //注☛用户评分•样式区域
+  .grade/deep/.el-button {
+    width: 160px;
+  }
   .top {
     text-align: center;
   }
@@ -416,6 +471,11 @@ export default {
 
   .el-carousel__item:nth-child(2n + 1) {
     background-color: #d3dce6;
+  }
+  //注☛：图片点位•模板区域
+  .block/deep/.el-image {
+    width: 530px;
+    height: 250px;
   }
 }
 </style>

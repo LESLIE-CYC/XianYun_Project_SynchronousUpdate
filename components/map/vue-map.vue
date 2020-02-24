@@ -77,46 +77,5 @@ export default {
 
 
 <style lang="less" scoped>
- //注☛：高德地图•样式设置
-.container {
-  width: 500px;
-  height: 450px;
-  transform: translate3d(-50%, -50%, 0);
-  border: 1px solid #999;
-}
-.search-box {
-  z-index: 5;
-  width: 70%;
-  left: 13%;
-  top: 10px;
-  height: 30px;
-}
-.search-box {
-  input {
-    width: 80%;
-    height: 100%;
-    border: 1px solid #30ccc1;
-    padding: 0 8px;
-    outline: none;
-  }
-}
-.search-box {
-  button {
-    float: left;
-    width: 20%;
-    height: 100%;
-    background: #30ccc1;
-    border: 1px solid #30ccc1;
-    color: #fff;
-    outline: none;
-  }
-}
-.tip-box {
-  width: 100%;
-  max-height: 260px;
-  position: absolute;
-  top: 30px;
-  overflow-y: auto;
-  background-color: #fff;
-}
+
 </style>
