@@ -30,11 +30,6 @@
           <i class="el-icon-search" @click="searchClick"></i>
           <!-- A.2点击搜索图标后跳转到酒店页面 搜索-->
         </el-row>
-
-        <!-- 城市下拉•可选择按•国内热门•ABCD字母•国际等这个城市，当用户鼠标的光标聚焦在输入框里面时 -->
-        <!-- 注：这时只是想做这么一个效果，反台可能并没相关的城市的数据 -->
-        <!--城市下拉列表  -->
-        <!-- v-for="(item) in townList"  -->
         <div class="cityDropDownList">
           <el-tabs type="border-card" v-model='townName'
           v-for="(item1,index1) in data_List" :key=index1>
@@ -81,17 +76,17 @@ export default {
       }],
       total:100,
     };
-    console.log('townList')
+    // console.log('townList')
   },
   mounted(){
     this.$axios({
       url:"/posts/cities",
     }).then(res =>{
-      console.log(res)
+      // console.log(res)
     //下面是循环这里
       this.data_List = res.data.data
     })
-    console.log('data_List')
+    // console.log('data_List')
   },
 
   methods: {
@@ -103,9 +98,10 @@ export default {
       this.current = index;
     },
     //测试上传是否成功
-    //点击ico搜索图标功能•跳转到酒店页面  A.1--searchClick：搜索点击
+    //点击ico搜索图标功能•跳转到酒店页面
     searchClick() {
-      this.$router.push("/hotel"); //A.3--点击搜索图标时能跳转到酒店首页•功能1完成
+      // 点击搜索图标时能跳转到酒店首页•功能1完成
+      this.$router.push("/hotel");
     },
     handleClick(index){
       // console.log(index)

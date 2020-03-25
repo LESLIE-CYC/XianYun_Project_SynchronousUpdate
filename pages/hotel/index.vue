@@ -104,54 +104,56 @@
                 <a href="http://">吉山村</a>
               </div>
             </el-collapse-item>
-            <el-collapse-item title="☛点击展开☛你想看一下网友对酒店：均价评分吗？： ★★★★★ + 点赞 ♕♕♕♕♕" name="3">
-              <div class="grade">
-                <!-- 注☛：用户评分•第一种价格•模板区域 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
-                  placement="top"
-                >
-                  <el-button>
-                    <div class="praise">
-                      <span>评分-均价：￥ 200</span>
-                    </div>
-                    <el-rate v-model="value3" show-text></el-rate>
-                  </el-button>
-                </el-tooltip>
-                <!-- 注☛：用户评分•第二种价格•模板区域 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
-                  placement="top"
-                >
-                  <el-button>
-                    <div class="praise">
-                      <span>评分-均价：￥ 400</span>
-                    </div>
-                    <el-rate v-model="value3" show-text></el-rate>
-                  </el-button>
-                </el-tooltip>
-                <!-- 注☛：用户评分•第三种价格•模板区域 -->
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
-                  placement="top"
-                >
-                  <el-button>
-                    <div class="praise">
-                      <span>评分-均价：￥ 600</span>
-                    </div>
-                    <el-rate v-model="value3" show-text></el-rate>
-                  </el-button>
-                </el-tooltip>
-              </div>
-            </el-collapse-item>
+            <div class="averagePrice">
+              <el-collapse-item title="☛点击展开☛你想看一下网友对酒店：均价吗？： 评分：★★★★★ + 点赞：♕♕♕♕♕" name="3">
+                <div class="grade">
+                  <!-- 注☛：用户评分•第一种价格•模板区域 -->
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
+                    placement="top"
+                  >
+                    <el-button>
+                      <div class="praise">
+                        <span>评分-均价：￥ 200</span>
+                      </div>
+                      <el-rate v-model="value3" show-text></el-rate>
+                    </el-button>
+                  </el-tooltip>
+                  <!-- 注☛：用户评分•第二种价格•模板区域 -->
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
+                    placement="top"
+                  >
+                    <el-button>
+                      <div class="praise">
+                        <span>评分-均价：￥ 400</span>
+                      </div>
+                      <el-rate v-model="value3" show-text></el-rate>
+                    </el-button>
+                  </el-tooltip>
+                  <!-- 注☛：用户评分•第三种价格•模板区域 -->
+                  <el-tooltip
+                    class="item"
+                    effect="dark"
+                    content="温馨提示：等级评定是针对房价，设施和服务等方面水平的综合评价"
+                    placement="top"
+                  >
+                    <el-button>
+                      <div class="praise">
+                        <span>评分-均价：￥ 600</span>
+                      </div>
+                      <el-rate v-model="value3" show-text></el-rate>
+                    </el-button>
+                  </el-tooltip>
+                </div>
+              </el-collapse-item>
+            </div>
             <el-collapse-item title="☛点击展开☛世界著明酒店☛图片集☛🎦🎦🎦" name="4">
-              <div>世界酒店预览：以下☟的图片为最新摄影❤↕⇲来自官方摄影↕⇱❤</div>
+              <div>世界酒店预览：以下☟的图片为闲云旅游网官方最新摄影❤↕⇲数据来自官方摄影↕⇱❤</div>
             </el-collapse-item>
             <!-- 注☛：图片展示点位•模板区域 -->
             <div class="block">
@@ -160,21 +162,36 @@
             </div>
           </el-collapse>
         </div>
-
         <!-- 注☛：高德地图•布局容器•右边•模板区域 -->
         <el-main>
-          <VueMap>
-            <div>高德地图:最懂你心思的小助手哦！</div>
-          </VueMap>
+          <!-- <div>高德地图</div> -->
+          <div class="container">
+            <div class="search-box">
+              <input v-model="searchKey" type="search" id="search" />
+              <button @click="searchByHand">搜索</button>
+              <div class="tip-box" id="searchTip"></div>
+            </div>
+            <el-amap
+              class="amap-box"
+              :amap-manager="amapManager"
+              :vid="'amap-vue'"
+              :zoom="zoom"
+              :plugin="plugin"
+              :center="center"
+              :events="events"
+            >
+              <el-amap-marker v-for="(marker, index) in markers" :position="marker" :key="index"></el-amap-marker>
+            </el-amap>
+          </div>
         </el-main>
       </el-container>
     </div>
-
-    <!-- 注☛:轮播图•展示酒店•广告专用 -->
+    <!-- 注☛:轮播图•展示酒店•广告栏专用 -->
     <div class="block">
-      <span
-        class="demonstration"
-      >☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛闻文于世界的•世界酒店排名•广告栏专用•黑马程序员☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚</span>
+      <span class="demonstration">
+        ☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛☛闻名于世界的•世界酒店排名
+        •广告栏投放区域•今年大优惠☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚☚
+      </span>
       <el-carousel trigger="click" height="150px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3>{{ item }}</h3>
@@ -184,10 +201,14 @@
   </div>
 </template>
 
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key='8b78fa9fc97b91d14edad8d3e6cd4726'"></script>
+
 <script>
-import VueMap from "@/components/map/vue-map.vue";
+import { AMapManager, lazyAMapApiLoaderInstance } from "vue-amap";
+let amapManager = new AMapManager();
 export default {
   data() {
+    let self = this;
     return {
       //注☛：切换城市•数据返回区域
       input: "",
@@ -201,11 +222,126 @@ export default {
       //注☛：让用户评分•数据返回区域
       value3: null,
       //
-      src: "http://157.122.54.189:9095/assets/images/th01.jfif"
+      src: "http://157.122.54.189:9095/assets/images/th01.jfif",
+      //注☛：高德地图•数据返回区域
+      address: null,
+      searchKey: "",
+      amapManager,
+      markers: [],
+      searchOption: {
+        city: "全国",
+        citylimit: true
+      },
+      center: [121.329402, 31.228667],
+      zoom: 17,
+      lng: 0,
+      lat: 0,
+      loaded: false,
+      events: {
+        init() {
+          lazyAMapApiLoaderInstance.load().then(() => {
+            self.initSearch();
+          });
+        },
+        // 点击获取地址的数据
+        click(e) {
+          // console.log(e)
+          self.markers = [];
+          let { lng, lat } = e.lnglat;
+          self.lng = lng;
+          self.lat = lat;
+          self.center = [lng, lat];
+          self.markers.push([lng, lat]);
+          // 这里通过高德 SDK 完成。
+          let geocoder = new AMap.Geocoder({
+            radius: 1000,
+            extensions: "all"
+          });
+          geocoder.getAddress([lng, lat], function(status, result) {
+            if (status === "complete" && result.info === "OK") {
+              if (result && result.regeocode) {
+                console.log(result.regeocode.formattedAddress);
+                self.address = result.regeocode.formattedAddress;
+                self.searchKey = result.regeocode.formattedAddress;
+                self.$nextTick();
+              }
+            }
+          });
+        }
+      },
+      // 一些工具插件
+      plugin: [
+        {
+          pName: "Geocoder",
+          events: {
+            init(o) {
+              console.log(o.getAddress());
+            }
+          }
+        },
+        {
+          // 定位
+          pName: "Geolocation",
+          events: {
+            init(o) {
+              // o是高德地图定位插件实例
+              o.getCurrentPosition((status, result) => {
+                if (result && result.position) {
+                  // 设置经度
+                  self.lng = result.position.lng;
+                  // 设置维度
+                  self.lat = result.position.lat;
+                  // 设置坐标
+                  self.center = [self.lng, self.lat];
+                  self.markers.push([self.lng, self.lat]);
+                  // load
+                  self.loaded = true;
+                  // 页面渲染好后
+                  self.$nextTick();
+                }
+              });
+            }
+          }
+        },
+        {
+          // 工具栏
+          pName: "ToolBar",
+          events: {
+            init(instance) {
+              // console.log(instance);
+            }
+          }
+        },
+        {
+          // 鹰眼
+          pName: "OverView",
+          events: {
+            init(instance) {
+              // console.log(instance);
+            }
+          }
+        },
+        {
+          // 地图类型
+          pName: "MapType",
+          defaultType: 0,
+          events: {
+            init(instance) {
+              // console.log(instance);
+            }
+          }
+        },
+        {
+          // 搜索
+          pName: "PlaceSearch",
+          events: {
+            init(instance) {
+              // console.log(instance)
+            }
+          }
+        }
+      ]
     };
-  },
-  components: {
-    VueMap
   },
   methods: {
     tabClick(index) {
@@ -215,7 +351,6 @@ export default {
       }
       this.current = index;
     },
-    //注☛：点击ico搜索图标功能•跳转到酒店页面
     querySearch(queryString, cb) {
       var restaurants = this.restaurants;
       var results = queryString
@@ -282,15 +417,55 @@ export default {
         { value: "星移浓缩咖啡", address: "上海市嘉定区新郁路817号" }
       ];
     },
+    //注☛：高德地图•自定义•方法
+    initSearch() {
+      let vm = this;
+      let map = this.amapManager.getMap();
+      AMapUI.loadUI(["misc/PoiPicker"], function(PoiPicker) {
+        var poiPicker = new PoiPicker({
+          input: "search",
+          placeSearchOptions: {
+            map: map,
+            pageSize: 10
+          },
+          suggestContainer: "searchTip",
+          searchResultsContainer: "searchTip"
+        });
+        vm.poiPicker = poiPicker;
+        // 监听poi选中信息
+        poiPicker.on("poiPicked", function(poiResult) {
+          // console.log(poiResult)
+          let source = poiResult.source;
+          let poi = poiResult.item;
+          if (source !== "search") {
+            poiPicker.searchByKeyword(poi.name);
+          } else {
+            poiPicker.clearSearchResults();
+            vm.markers = [];
+            let lng = poi.location.lng;
+            let lat = poi.location.lat;
+            let address = poi.cityname + poi.adname + poi.name;
+            vm.center = [lng, lat];
+            vm.markers.push([lng, lat]);
+            vm.lng = lng;
+            vm.lat = lat;
+            vm.address = address;
+            vm.searchKey = address;
+          }
+        });
+      });
+    },
+    searchByHand() {
+      if (this.searchKey !== "") {
+        this.poiPicker.searchByKeyword(this.searchKey);
+      }
+    },
 
     handleSelect(item) {
       console.log(item);
     },
     handleIconClick(ev) {
       console.log(ev);
-    },
-    mounted() {
-      this.restaurants = this.loadAll();
     },
     beforeDestroy() {}
   }
@@ -369,23 +544,53 @@ export default {
   //注：☛容器布局•样式区域
   .layoutContainer/deep/.el-container {
     .accordionLeft {
-      width: 60%;
+      width:580px;
     }
     //注☛：高德地图•样式设置
     .container {
-      width: 500px;
+      width: 370px;
       height: 100%;
-      transform: translate3d(-50%, -50%, 0);
-      border: 2px solid #999;
+      // transform: translate3d(-50%, -50%, 0);
+      border: 2px solid #c0c4cc;
     }
-    ////注☛：提示给用户的信息•样式设置
     .search-box {
       z-index: 5;
-      width: 70%;
-      left: 13%;
+      width: 50%;
+      left: 150px;
       top: 10px;
       height: 30px;
     }
+    .search-box {
+      input {
+        float: left;
+        width: 80%;
+        height: 100%;
+        border: 1px solid #30ccc1;
+        padding: 0 8px;
+        outline: none;
+      }
+    }
+    .search-box {
+      button {
+        float: left;
+        width: 20%;
+        height: 100%;
+        background: #30ccc1;
+        border: 1px solid #30ccc1;
+        color: #fff;
+        outline: none;
+      }
+    }
+    .tip-box {
+      width: 100%;
+      max-height: 260px;
+      position: absolute;
+      top: 30px;
+      overflow-y: auto;
+      background-color: #fff;
+    }
+
+    //注☛：提示给用户的信息•样式设置
     .search-box {
       input {
         width: 80%;
@@ -422,25 +627,15 @@ export default {
     text-align: center;
     line-height: 60px;
   }
-
   .el-aside {
     background-color: #d3dce6;
     color: #333;
     text-align: center;
     line-height: 200px;
   }
-
-  .el-main {
-    background-color: #e9eef3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
-
   body > .el-container {
     margin-bottom: 40px;
   }
-
   .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;
@@ -450,13 +645,13 @@ export default {
     line-height: 320px;
   }
   //注☛用户评分•样式区域
-  .grade/deep/.el-button {
-    width: 160px;
+  .averagePrice/deep/.el-button {
+    width: 180px;
   }
   .top {
     text-align: center;
   }
-  //注☛轮播图•广告专用•样式区域
+  //注☛轮播图•广告栏专用•样式区域
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
@@ -472,10 +667,10 @@ export default {
   .el-carousel__item:nth-child(2n + 1) {
     background-color: #d3dce6;
   }
-  //注☛：图片点位•模板区域
+  //注☛：图片占位•样式区域
   .block/deep/.el-image {
-    width: 530px;
-    height: 250px;
+    width: 580px;
+    height: 300px;
   }
 }
 </style>
